@@ -364,39 +364,9 @@
           gap: 20px;
         }
 
-        /* Contenedores de imágenes y logos: se muestran horizontalmente arriba y abajo */
+        /* Oculta completamente el contenedor de imágenes y logos en pantallas pequeñas */
         .image-with-logos {
-          flex-direction: row; /* Cambia a horizontal */
-          flex-wrap: wrap; /* Permite que los elementos salten de línea */
-          justify-content: center; /* Centra los elementos horizontalmente */
-          width: 100%; /* Ocupa todo el ancho disponible */
-          height: auto; /* Ajusta la altura automáticamente */
-          gap: 15px; /* Espacio entre los logos/imágenes */
-        }
-
-        .gala-image {
-          width: 50%; /* La imagen ocupará el 100% del ancho de su contenedor padre */
-          height: 75px; /* La altura se ajustará automáticamente para mantener la proporción */
-          max-width: 75px; /* Limita el ancho máximo para pantallas grandes */
-          border-radius: 15px;
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .polideportivo-logo {
-          width: 25%; /* Ocupa el 100% del ancho de su contenedor */
-          height: auto; /* Altura automática para mantener la proporción */
-          max-width: 120px; /* Limita el ancho máximo */
-          object-fit: contain; /* Asegura que la imagen quepa sin distorsión */
-          margin: 0; /* Elimina márgenes verticales para un mejor flujo horizontal */
-          border-radius: 15px;
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .social-media-buttons {
-          width: 100%;
-          max-width: 75px;
-          margin: 0; /* Elimina márgenes para que se alinee mejor */
-          padding: 5px 0;
+          display: none;
         }
 
         .gala-title {
