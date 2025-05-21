@@ -44,7 +44,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        height: 100%;
+        height: 100%; /* Asegura que este contenedor ocupe la altura de su padre */
+        justify-content: center; /* Centra verticalmente los elementos */
       }
 
       .gala-container {
@@ -60,7 +61,7 @@
       }
 
       .gala-title {
-        font-size: 3em;
+        font-size: 3.3em;
         font-weight: 700;
         text-transform: uppercase;
         margin-bottom: 20px;
@@ -102,8 +103,8 @@
       }
 
       .trophy {
-        width: 40px;
-        height: 40px;
+        width: 80px;
+        height: 80px;
         vertical-align: middle;
         animation: trophyScaleShine 2s ease-in-out infinite; /* Nueva animación de escala y brillo */
       }
@@ -213,8 +214,8 @@
       }
 
       .ball {
-        width: 40px;
-        height: 40px;
+        width: 60px;
+        height: 60px;
         position: absolute;
         z-index: 1;
         pointer-events: none;
@@ -223,37 +224,77 @@
         opacity: 0.6;
       }
 
+      /* Estilos para las imágenes responsivas */
       .gala-image {
-        width: 300px; /* Adjust as needed */
-        height: auto; /* Maintain aspect ratio */
+        width: 100%; /* La imagen ocupará el 100% del ancho de su contenedor padre */
+        height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
+        max-width: 300px; /* Limita el ancho máximo para pantallas grandes */
         border-radius: 15px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       }
 
       .polideportivo-logo {
-        width: 300px; /* Same width as the poster */
-        height: 25%; /* Approximately 20% of 300px, but set explicitly for consistency */
-        object-fit: contain; /* Ensures the image fits without distortion */
-        margin-top: 5%; /* Space above the poster */
-        margin-bottom: 5%; /* Space below the poster */
+        width: 100%; /* Ocupa el 100% del ancho de su contenedor */
+        height: auto; /* Altura automática para mantener la proporción */
+        max-width: 300px; /* Limita el ancho máximo */
+        object-fit: contain; /* Asegura que la imagen quepa sin distorsión */
+        margin-top: 5%;
+        margin-bottom: 5%;
         border-radius: 15px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Estilo para el contenedor de botones sociales */
+      .social-media-buttons {
+        width: 100%; /* Ocupa el 100% del ancho de su contenedor */
+        height: auto; /* La altura se ajustará al contenido */
+        max-width: 300px; /* Limita el ancho máximo */
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        padding: 10px 0; /* Ajusta el padding para que los botones no se peguen a los bordes */
+      }
+
+      .social-media-buttons a {
+        display: block;
+        width: 80%;
+        padding: 10px;
+        margin: 10px 0; /* Aumentado el margen para más espacio entre botones */
+        background-color: #001f3f; /* Color de fondo del body */
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      .social-media-buttons a:hover {
+        background-color: #003366; /* Un color un poco más claro al pasar el ratón */
+      }
+
+      /* Estilo para el texto del tamaño de la pantalla */
+      .screen-size-display {
+        font-size: 0.9em;
+        color: lightgray;
+        margin-top: -10px; /* Para que quede justo debajo del título */
+        margin-bottom: 20px;
       }
 
       /* Media Queries para responsividad */
       @media (max-width: 1024px) {
         .content-wrapper {
-          flex-direction: column; /* Stack on smaller screens */
+          flex-direction: column; /* Apila los elementos en pantallas más pequeñas */
           gap: 20px;
         }
         .gala-image,
-        .polideportivo-logo {
-          width: 80%; /* Adjust width for smaller screens */
-          max-width: 300px; /* Limit maximum width */
-        }
-        .polideportivo-logo {
-          height: auto; /* Allow height to scale with width */
-          max-height: 60px; /* Limit max height to maintain proportion */
+        .polideportivo-logo,
+        .social-media-buttons {
+          width: 80%; /* Ajusta el ancho para pantallas más pequeñas */
+          max-width: 300px; /* Limita el ancho máximo */
         }
         .gala-title {
           font-size: 2.5em;
@@ -261,28 +302,116 @@
       }
 
       @media (max-width: 768px) {
+        .content-wrapper {
+          flex-direction: column; /* Apila los elementos en pantallas más pequeñas */
+          gap: 20px;
+        }
+
+        /* Contenedores de imágenes y logos: se muestran horizontalmente arriba y abajo */
+        .image-with-logos {
+          flex-direction: row; /* Cambia a horizontal */
+          flex-wrap: wrap; /* Permite que los elementos salten de línea */
+          justify-content: center; /* Centra los elementos horizontalmente */
+          width: 100%; /* Ocupa todo el ancho disponible */
+          height: auto; /* Ajusta la altura automáticamente */
+          gap: 15px; /* Espacio entre los logos/imágenes */
+        }
+
+        .gala-image {
+          width: 50%; /* La imagen ocupará el 100% del ancho de su contenedor padre */
+          height: 75px; /* La altura se ajustará automáticamente para mantener la proporción */
+          max-width: 75px; /* Limita el ancho máximo para pantallas grandes */
+          border-radius: 15px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .polideportivo-logo {
+          width: 25%; /* Ocupa el 100% del ancho de su contenedor */
+          height: auto; /* Altura automática para mantener la proporción */
+          max-width: 120px; /* Limita el ancho máximo */
+          object-fit: contain; /* Asegura que la imagen quepa sin distorsión */
+          margin: 0; /* Elimina márgenes verticales para un mejor flujo horizontal */
+          border-radius: 15px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .social-media-buttons {
+          width: 100%;
+          max-width: 75px;
+          margin: 0; /* Elimina márgenes para que se alinee mejor */
+          padding: 5px 0;
+        }
+
         .gala-title {
-          font-size: 2em;
+          font-size: 1.5em; /* Ajusta el tamaño de fuente para pantallas más pequeñas */
         }
         .countdown {
           font-size: 1.2em;
         }
+        .gala-container {
+          padding: 30px 20px;
+        }
+        /* Make trophies responsive */
+        .trophy {
+          width: 30px; /* Reduced size for smaller screens */
+          height: 30px;
+        }
       }
 
       @media (max-width: 480px) {
-        .gala-title {
-          font-size: 1.5em;
-          gap: 10px;
+        .content-wrapper {
+          flex-direction: column; /* Apila los elementos en pantallas más pequeñas */
+          gap: 20px;
         }
-        .trophy {
-          width: 30px;
-          height: 30px;
+
+        /* Contenedores de imágenes y logos: se muestran horizontalmente arriba y abajo */
+        .image-with-logos {
+          flex-direction: row; /* Cambia a horizontal */
+          flex-wrap: wrap; /* Permite que los elementos salten de línea */
+          justify-content: center; /* Centra los elementos horizontalmente */
+          width: 100%; /* Ocupa todo el ancho disponible */
+          height: auto; /* Ajusta la altura automáticamente */
+          gap: 15px; /* Espacio entre los logos/imágenes */
+        }
+
+        .gala-image {
+          width: 50%; /* La imagen ocupará el 100% del ancho de su contenedor padre */
+          height: 75px; /* La altura se ajustará automáticamente para mantener la proporción */
+          max-width: 75px; /* Limita el ancho máximo para pantallas grandes */
+          border-radius: 15px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .polideportivo-logo {
+          width: 25%; /* Ocupa el 100% del ancho de su contenedor */
+          height: auto; /* Altura automática para mantener la proporción */
+          max-width: 120px; /* Limita el ancho máximo */
+          object-fit: contain; /* Asegura que la imagen quepa sin distorsión */
+          margin: 0; /* Elimina márgenes verticales para un mejor flujo horizontal */
+          border-radius: 15px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .social-media-buttons {
+          width: 100%;
+          max-width: 75px;
+          margin: 0; /* Elimina márgenes para que se alinee mejor */
+          padding: 5px 0;
+        }
+
+        .gala-title {
+          font-size: 1.5em; /* Ajusta el tamaño de fuente para pantallas más pequeñas */
         }
         .countdown {
-          font-size: 1em;
+          font-size: 1.2em;
         }
         .gala-container {
-          padding: 20px 15px;
+          padding: 30px 20px;
+        }
+        /* Make trophies responsive */
+        .trophy {
+          width: 30px; /* Reduced size for smaller screens */
+          height: 30px;
         }
       }
     </style>
@@ -297,7 +426,7 @@
             class="polideportivo-logo"
           />
           <img
-            src="imgs/cartel_gala.jpg"
+            src="imgs/Escudo_de_Hinojosnegro - copia.jpg"
             alt="Cartel de la Gala"
             class="gala-image"
           />
@@ -314,6 +443,10 @@
             {{ galaTitle }}
             <img src="imgs/trofeo2.png" alt="Trofeo derecho" class="trophy" />
           </h1>
+          <div class="screen-size-display">
+            Tamaño de pantalla: {{ screenWidth }}px (ancho) x {{ screenHeight
+            }}px (alto)
+          </div>
 
           <div class="countdown" v-if="!isEventStarted">
             ¡El evento comienza en:
@@ -329,7 +462,11 @@
             <iframe
               width="80%"
               height="100%"
-              :src="isEventStarted ? 'https://www.youtube.com/embed/IEKSa9FVLqA?autoplay=1&mute=1' : 'https://www.youtube.com/embed/IEKSa9FVLqA'"
+              :src="
+                isEventStarted
+                  ? 'https://www.youtube.com/embed/dQw4w9WgXcQ' // Ejemplo de video real al iniciar
+                  : 'about:blank' // No carga nada antes de que empiece el evento
+              "
               title="YouTube video player"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -363,11 +500,19 @@
             alt="Logo Polideportivo"
             class="polideportivo-logo"
           />
-          <img
-            src="imgs/cartel_gala.jpg"
-            alt="Cartel de la Gala"
-            class="gala-image"
-          />
+          <div class="social-media-buttons">
+            <a href="https://www.instagram.com/deporteshinojos/" target="_blank"
+              >Instagram</a
+            >
+            <a href="https://www.youtube.com/@AytoHinojos" target="_blank"
+              >YouTube</a
+            >
+            <a
+              href="https://www.facebook.com/DeportesHinojos/?locale=es_ES"
+              target="_blank"
+              >Facebook</a
+            >
+          </div>
           <img
             src="imgs/logo_polideportivo.jpg"
             alt="Logo Polideportivo"
@@ -388,9 +533,9 @@
       createApp({
         data() {
           return {
-            galaTitle: "IX Gala del Deporte",
-            eventDate: new Date(new Date().getTime() + 5000), // 1 segundo desde ahora
-            // Months in JavaScript are 0-indexed (May is 4)
+            galaTitle: "IX Gala del Deporte Hinojos",
+            // Ajusta esta fecha y hora para la fecha real de tu evento
+            eventDate: new Date(new Date().getTime() + 5000), // 5 segundos desde ahora para probar
             countdown: { days: 0, hours: 0, minutes: 0, seconds: 0 },
             isEventStarted: false,
             showMessage: false,
@@ -398,6 +543,8 @@
             balls: [],
             container: null,
             nextBallId: 0,
+            screenWidth: window.innerWidth, // Añadir propiedad para el ancho
+            screenHeight: window.innerHeight, // Añadir propiedad para el alto
           };
         },
         methods: {
@@ -459,9 +606,10 @@
           animateBalls() {
             const container = this.$refs.container;
             if (!container) return;
-            const ballSize = 40;
+            const ballSize = 60; // Ajusta el tamaño de la pelota según tu CSS
             const move = () => {
               if (!this.balls.length) return;
+              // Asegura que las pelotas reboten dentro del contenedor, no de la ventana
               const currentWidth = container.clientWidth - ballSize;
               const currentHeight = container.clientHeight - ballSize;
 
@@ -489,6 +637,11 @@
             };
             requestAnimationFrame(move);
           },
+          // Nuevo método para actualizar el tamaño de la pantalla
+          updateScreenSize() {
+            this.screenWidth = window.innerWidth;
+            this.screenHeight = window.innerHeight;
+          },
         },
         mounted() {
           this.updateCountdown();
@@ -502,10 +655,15 @@
               console.error("Container ref not found!");
             }
           });
+          // Escuchar el evento de redimensionamiento para actualizar el tamaño de la pantalla
+          window.addEventListener("resize", this.updateScreenSize);
+          this.updateScreenSize(); // Llamar una vez al montar para el tamaño inicial
         },
         beforeUnmount() {
           clearInterval(this.countdownInterval);
           if (this.messageTimeout) clearTimeout(this.messageTimeout);
+          // Remover el listener del evento resize al desmontar el componente
+          window.removeEventListener("resize", this.updateScreenSize);
         },
       }).mount("#app");
     </script>
