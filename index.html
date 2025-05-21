@@ -140,7 +140,6 @@
         z-index: 3;
       }
 
-
       .countdown span {
         margin: 0 8px;
         color: #ffd700;
@@ -253,10 +252,11 @@
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         background-color: white;
         display: flex;
-        flex-direction: column;
+        flex-direction: column; /* Por defecto vertical */
         align-items: center;
         justify-content: space-around;
         padding: 10px 0;
+        margin-top: 20px; /* Añade un poco de espacio */
       }
 
       .social-media-buttons a {
@@ -372,23 +372,44 @@
         }
         .gala-container {
           padding: 30px 20px;
-          margin-top: -50px;
         }
         .trophy {
           width: 40px;
           height: 40px;
         }
-        
-      .ball {
-        width: 20px;
-        height: 20px;
-        position: absolute;
-        z-index: 1;
-        pointer-events: none;
-        transition: transform 0.1s;
-        filter: blur(2px);
-        opacity: 0.6;
-      }
+
+        .ball {
+          width: 20px;
+          height: 20px;
+          position: absolute;
+          z-index: 1;
+          pointer-events: none;
+          transition: transform 0.1s;
+          filter: blur(2px);
+          opacity: 0.6;
+        }
+
+        /* Mostrar botones de redes sociales en fila */
+        .social-media-buttons {
+          display: flex;
+          flex-direction: row; /* Cambiar a fila */
+          justify-content: center; /* Centrar los botones en la fila */
+          width: 100%; /* Ocupar todo el ancho disponible */
+          max-width: none; /* Eliminar el max-width para que se ajusten */
+          padding: 10px;
+          margin-top: 20px;
+          box-shadow: none; /* Opcional: quitar la sombra */
+          background-color: transparent; /* Opcional: quitar el fondo blanco */
+          border-radius: 0; /* Opcional: quitar el borde redondeado */
+        }
+
+        .social-media-buttons a {
+          width: auto; /* Ancho automático para que los botones no se estiren */
+          flex: 1; /* Para que ocupen el espacio equitativamente */
+          margin: 0 5px; /* Espacio entre los botones */
+          padding: 8px 12px; /* Ajustar el padding */
+          font-size: 0.9em; /* Ajustar el tamaño de la fuente */
+        }
       }
     </style>
   </head>
@@ -440,7 +461,7 @@
               height="100%"
               :src="
                 isEventStarted
-                  ? 'https://www.youtube.com/embed/OR9MH16MKrg?si=QODEGnTwzMD20Dxr' // Ejemplo de video real al iniciar
+                  ? 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1' // Ejemplo de video real al iniciar
                   : 'about:blank' // No carga nada antes de que empiece el evento
               "
               title="YouTube video player"
@@ -458,6 +479,20 @@
             </div>
           </div>
 
+          <div class="social-media-buttons">
+            <a href="https://www.instagram.com/deporteshinojos/" target="_blank"
+              >Instagram</a
+            >
+            <a href="https://www.youtube.com/c/HinojosTV" target="_blank"
+              >YouTube</a
+            >
+            <a
+              href="https://www.facebook.com/DeportesHinojos/?locale=es_ES"
+              target="_blank"
+              >Facebook</a
+            >
+          </div>
+
           <img
             v-for="ball in balls"
             :key="ball.id"
@@ -467,32 +502,6 @@
               left: ball.x + 'px',
               top: ball.y + 'px',
             }"
-          />
-        </div>
-
-        <div class="image-with-logos">
-          <img
-            src="imgs/logo_polideportivo.jpg"
-            alt="Logo Polideportivo"
-            class="polideportivo-logo"
-          />
-          <div class="social-media-buttons">
-            <a href="https://www.instagram.com/deporteshinojos/" target="_blank"
-              >Instagram</a
-            >
-            <a href="https://www.youtube.com/@AytoHinojos" target="_blank"
-              >YouTube</a
-            >
-            <a
-              href="https://www.facebook.com/DeportesHinojos/?locale=es_ES"
-              target="_blank"
-              >Facebook</a
-            >
-          </div>
-          <img
-            src="imgs/logo_polideportivo.jpg"
-            alt="Logo Polideportivo"
-            class="polideportivo-logo"
           />
         </div>
       </div>
