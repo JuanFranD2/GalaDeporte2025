@@ -9,16 +9,6 @@
       rel="stylesheet"
     />
     <style>
-      /* Importar la fuente Glamor */
-      /* IMPORTANTE: Asegúrate de que 'fonts/Glamor-Bold.ttf' sea la ruta correcta a tu archivo .ttf */
-      @font-face {
-        font-family: "Glamor";
-        src: url("fonts/Glamor-Bold.ttf") format("truetype"); /* Formato cambiado a 'truetype' */
-        font-weight: 700; /* Asumiendo que es una versión bold de Glamor */
-        font-style: normal;
-        font-display: swap; /* Para controlar cómo se carga la fuente */
-      }
-
       body {
         margin: 0;
         padding: 0;
@@ -39,21 +29,23 @@
         padding: 20px;
       }
 
+      /* Nuevo contenedor para la imagen y la gala */
       .content-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 30px;
+        display: flex; /* Habilitar Flexbox */
+        align-items: center; /* Alinear verticalmente los elementos */
+        gap: 30px; /* Espacio entre la imagen y el contenedor de la gala */
         width: 100%;
         height: 100%;
         justify-content: center;
       }
 
+      /* Wrapper for each image and its logos */
       .image-with-logos {
         display: flex;
         flex-direction: column;
         align-items: center;
-        height: 100%;
-        justify-content: center;
+        height: 100%; /* Asegura que este contenedor ocupe la altura de su padre */
+        justify-content: center; /* Centra verticalmente los elementos */
       }
 
       .gala-container {
@@ -63,13 +55,12 @@
         box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
         padding: 40px 30px;
         text-align: center;
-        flex-grow: 1;
+        flex-grow: 1; /* Permite que el contenedor de la gala ocupe el espacio restante */
         position: relative;
         overflow: hidden;
       }
 
       .gala-title {
-        font-family: "Glamor", "Montserrat", sans-serif; /* Aplicar Glamor primero */
         font-size: 3.3em;
         font-weight: 700;
         text-transform: uppercase;
@@ -82,10 +73,11 @@
         gap: 15px;
         position: relative;
         z-index: 3;
+        /* Estilos para el efecto de brillo */
         position: relative;
-        display: inline-flex;
-        -webkit-text-fill-color: transparent;
-        -webkit-background-clip: text;
+        display: inline-flex; /* Para que el gradiente funcione sobre el texto */
+        -webkit-text-fill-color: transparent; /* Hace el texto transparente */
+        -webkit-background-clip: text; /* Recorta el fondo al texto */
         background-clip: text;
         background-image: linear-gradient(
           45deg,
@@ -95,17 +87,18 @@
           #ffd700 60%,
           #fff 80%,
           #ffd700 100%
-        );
-        background-size: 200% 100%;
-        animation: shine 12s linear infinite;
+        ); /* Gradiente para el brillo */
+        background-size: 200% 100%; /* Duplica el tamaño para el movimiento */
+        animation: shine 12s linear infinite; /* Animación de brillo - Duración aumentada a 6s */
       }
 
+      /* Keyframes para la animación de brillo del título */
       @keyframes shine {
         0% {
-          background-position: 200% 0;
+          background-position: 200% 0; /* Empieza el gradiente a la izquierda */
         }
         100% {
-          background-position: -200% 0;
+          background-position: -200% 0; /* Termina el gradiente a la derecha */
         }
       }
 
@@ -113,21 +106,28 @@
         width: 80px;
         height: 80px;
         vertical-align: middle;
-        animation: trophyScaleShine 2s ease-in-out infinite;
+        animation: trophyScaleShine 2s ease-in-out infinite; /* Nueva animación de escala y brillo */
       }
 
+      /* Keyframes para la animación de brillo de los trofeos con cambio de tamaño */
       @keyframes trophyScaleShine {
         0% {
-          transform: scale(1);
-          filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+          transform: scale(1); /* Tamaño normal */
+          filter: drop-shadow(
+            0 0 5px rgba(255, 215, 0, 0.5)
+          ); /* Brillo inicial */
         }
         50% {
-          transform: scale(1.3);
-          filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9));
+          transform: scale(1.3); /* Más grande */
+          filter: drop-shadow(
+            0 0 20px rgba(255, 215, 0, 0.9)
+          ); /* Brillo intenso */
         }
         100% {
-          transform: scale(1);
-          filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+          transform: scale(1); /* Vuelve al tamaño normal */
+          filter: drop-shadow(
+            0 0 5px rgba(255, 215, 0, 0.5)
+          ); /* Brillo inicial */
         }
       }
 
@@ -224,29 +224,31 @@
         opacity: 0.6;
       }
 
+      /* Estilos para las imágenes responsivas */
       .gala-image {
-        width: 100%;
-        height: auto;
-        max-width: 300px;
+        width: 100%; /* La imagen ocupará el 100% del ancho de su contenedor padre */
+        height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
+        max-width: 300px; /* Limita el ancho máximo para pantallas grandes */
         border-radius: 15px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       }
 
       .polideportivo-logo {
-        width: 100%;
-        height: auto;
-        max-width: 300px;
-        object-fit: contain;
+        width: 100%; /* Ocupa el 100% del ancho de su contenedor */
+        height: auto; /* Altura automática para mantener la proporción */
+        max-width: 300px; /* Limita el ancho máximo */
+        object-fit: contain; /* Asegura que la imagen quepa sin distorsión */
         margin-top: 5%;
         margin-bottom: 5%;
         border-radius: 15px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       }
 
+      /* Estilo para el contenedor de botones sociales */
       .social-media-buttons {
-        width: 100%;
-        height: auto;
-        max-width: 300px;
+        width: 100%; /* Ocupa el 100% del ancho de su contenedor */
+        height: auto; /* La altura se ajustará al contenido */
+        max-width: 300px; /* Limita el ancho máximo */
         border-radius: 15px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         background-color: white;
@@ -254,15 +256,15 @@
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
-        padding: 10px 0;
+        padding: 10px 0; /* Ajusta el padding para que los botones no se peguen a los bordes */
       }
 
       .social-media-buttons a {
         display: block;
         width: 80%;
         padding: 10px;
-        margin: 10px 0;
-        background-color: #001f3f;
+        margin: 10px 0; /* Aumentado el margen para más espacio entre botones */
+        background-color: #001f3f; /* Color de fondo del body */
         color: white;
         text-align: center;
         text-decoration: none;
@@ -271,26 +273,28 @@
       }
 
       .social-media-buttons a:hover {
-        background-color: #003366;
+        background-color: #003366; /* Un color un poco más claro al pasar el ratón */
       }
 
+      /* Estilo para el texto del tamaño de la pantalla */
       .screen-size-display {
         font-size: 0.9em;
         color: lightgray;
-        margin-top: -10px;
+        margin-top: -10px; /* Para que quede justo debajo del título */
         margin-bottom: 20px;
       }
 
+      /* Media Queries para responsividad */
       @media (max-width: 1024px) {
         .content-wrapper {
-          flex-direction: column;
+          flex-direction: column; /* Apila los elementos en pantallas más pequeñas */
           gap: 20px;
         }
         .gala-image,
         .polideportivo-logo,
         .social-media-buttons {
-          width: 80%;
-          max-width: 300px;
+          width: 80%; /* Ajusta el ancho para pantallas más pequeñas */
+          max-width: 300px; /* Limita el ancho máximo */
         }
         .gala-title {
           font-size: 2.5em;
@@ -299,33 +303,34 @@
 
       @media (max-width: 768px) {
         .content-wrapper {
-          flex-direction: column;
+          flex-direction: column; /* Apila los elementos en pantallas más pequeñas */
           gap: 20px;
         }
 
+        /* Contenedores de imágenes y logos: se muestran horizontalmente arriba y abajo */
         .image-with-logos {
-          flex-direction: row;
-          flex-wrap: wrap;
-          justify-content: center;
-          width: 100%;
-          height: auto;
-          gap: 15px;
+          flex-direction: row; /* Cambia a horizontal */
+          flex-wrap: wrap; /* Permite que los elementos salten de línea */
+          justify-content: center; /* Centra los elementos horizontalmente */
+          width: 100%; /* Ocupa todo el ancho disponible */
+          height: auto; /* Ajusta la altura automáticamente */
+          gap: 15px; /* Espacio entre los logos/imágenes */
         }
 
         .gala-image {
-          width: 50%;
-          height: 75px;
-          max-width: 75px;
+          width: 50%; /* La imagen ocupará el 100% del ancho de su contenedor padre */
+          height: 75px; /* La altura se ajustará automáticamente para mantener la proporción */
+          max-width: 75px; /* Limita el ancho máximo para pantallas grandes */
           border-radius: 15px;
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
         .polideportivo-logo {
-          width: 25%;
-          height: auto;
-          max-width: 120px;
-          object-fit: contain;
-          margin: 0;
+          width: 25%; /* Ocupa el 100% del ancho de su contenedor */
+          height: auto; /* Altura automática para mantener la proporción */
+          max-width: 120px; /* Limita el ancho máximo */
+          object-fit: contain; /* Asegura que la imagen quepa sin distorsión */
+          margin: 0; /* Elimina márgenes verticales para un mejor flujo horizontal */
           border-radius: 15px;
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
@@ -333,12 +338,12 @@
         .social-media-buttons {
           width: 100%;
           max-width: 75px;
-          margin: 0;
+          margin: 0; /* Elimina márgenes para que se alinee mejor */
           padding: 5px 0;
         }
 
         .gala-title {
-          font-size: 1.5em;
+          font-size: 1.5em; /* Ajusta el tamaño de fuente para pantallas más pequeñas */
         }
         .countdown {
           font-size: 1.2em;
@@ -346,24 +351,26 @@
         .gala-container {
           padding: 30px 20px;
         }
+        /* Make trophies responsive */
         .trophy {
-          width: 30px;
+          width: 30px; /* Reduced size for smaller screens */
           height: 30px;
         }
       }
 
       @media (max-width: 480px) {
         .content-wrapper {
-          flex-direction: column;
+          flex-direction: column; /* Apila los elementos en pantallas más pequeñas */
           gap: 20px;
         }
 
+        /* Oculta completamente el contenedor de imágenes y logos en pantallas pequeñas */
         .image-with-logos {
           display: none;
         }
 
         .gala-title {
-          font-size: 1.5em;
+          font-size: 1.5em; /* Ajusta el tamaño de fuente para pantallas más pequeñas */
         }
         .countdown {
           font-size: 1.2em;
@@ -371,8 +378,9 @@
         .gala-container {
           padding: 30px 20px;
         }
+        /* Make trophies responsive */
         .trophy {
-          width: 30px;
+          width: 30px; /* Reduced size for smaller screens */
           height: 30px;
         }
       }
@@ -496,6 +504,7 @@
         data() {
           return {
             galaTitle: "IX Gala del Deporte Hinojos",
+            // Ajusta esta fecha y hora para la fecha real de tu evento
             eventDate: new Date(new Date().getTime() + 5000), // 5 segundos desde ahora para probar
             countdown: { days: 0, hours: 0, minutes: 0, seconds: 0 },
             isEventStarted: false,
@@ -504,8 +513,8 @@
             balls: [],
             container: null,
             nextBallId: 0,
-            screenWidth: window.innerWidth,
-            screenHeight: window.innerHeight,
+            screenWidth: window.innerWidth, // Añadir propiedad para el ancho
+            screenHeight: window.innerHeight, // Añadir propiedad para el alto
           };
         },
         methods: {
@@ -567,9 +576,10 @@
           animateBalls() {
             const container = this.$refs.container;
             if (!container) return;
-            const ballSize = 60;
+            const ballSize = 60; // Ajusta el tamaño de la pelota según tu CSS
             const move = () => {
               if (!this.balls.length) return;
+              // Asegura que las pelotas reboten dentro del contenedor, no de la ventana
               const currentWidth = container.clientWidth - ballSize;
               const currentHeight = container.clientHeight - ballSize;
 
@@ -597,6 +607,7 @@
             };
             requestAnimationFrame(move);
           },
+          // Nuevo método para actualizar el tamaño de la pantalla
           updateScreenSize() {
             this.screenWidth = window.innerWidth;
             this.screenHeight = window.innerHeight;
@@ -614,12 +625,14 @@
               console.error("Container ref not found!");
             }
           });
+          // Escuchar el evento de redimensionamiento para actualizar el tamaño de la pantalla
           window.addEventListener("resize", this.updateScreenSize);
-          this.updateScreenSize();
+          this.updateScreenSize(); // Llamar una vez al montar para el tamaño inicial
         },
         beforeUnmount() {
           clearInterval(this.countdownInterval);
           if (this.messageTimeout) clearTimeout(this.messageTimeout);
+          // Remover el listener del evento resize al desmontar el componente
           window.removeEventListener("resize", this.updateScreenSize);
         },
       }).mount("#app");
