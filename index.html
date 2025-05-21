@@ -394,9 +394,18 @@
 
         .social-media-buttons {
           width: 100%;
-          max-width: 75px;
-          margin: 0; /* Elimina márgenes para que se alinee mejor */
-          padding: 5px 0;
+          max-width: unset; /* Elimina el max-width para que ocupe el ancho disponible */
+          flex-direction: row; /* Muestra los botones en una fila */
+          justify-content: center; /* Centra los botones horizontalmente */
+          gap: 10px; /* Espacio entre los botones */
+          margin-top: 20px; /* Añade un margen superior para separarlo del contenido de arriba */
+          padding: 10px; /* Ajusta el padding si es necesario */
+        }
+
+        .social-media-buttons a {
+          width: auto; /* Permite que el ancho se ajuste al contenido o al gap */
+          flex-grow: 1; /* Permite que los botones crezcan y ocupen el espacio disponible */
+          margin: 0; /* Elimina los márgenes verticales que se usaban en columna */
         }
 
         .gala-title {
