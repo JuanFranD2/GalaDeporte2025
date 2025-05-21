@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gala del Deporte - En Directo</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+        background: linear-gradient(to bottom, #001f3f, #003366);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      #app {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      /* Nuevo contenedor para la imagen y la gala */
+      .content-wrapper {
+        display: flex; /* Habilitar Flexbox */
+        align-items: center; /* Alinear verticalmente los elementos */
+        gap: 30px; /* Espacio entre la imagen y el contenedor de la gala */
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+      }
+
+      /* Wrapper for each image and its logos */
+      .image-with-logos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+      }
+
+      .gala-container {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid gold;
+        border-radius: 20px;
+        box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+        padding: 40px 30px;
+        text-align: center;
+        flex-grow: 1; /* Permite que el contenedor de la gala ocupe el espacio restante */
+        position: relative;
+        overflow: hidden;
+      }
+
+      .gala-title {
+        font-size: 3em;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        color: gold;
+        letter-spacing: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        position: relative;
+        z-index: 3;
+        /* Estilos para el efecto de brillo */
+        position: relative;
+        display: inline-flex; /* Para que el gradiente funcione sobre el texto */
+        -webkit-text-fill-color: transparent; /* Hace el texto transparente */
+        -webkit-background-clip: text; /* Recorta el fondo al texto */
+        background-clip: text;
+        background-image: linear-gradient(
+          45deg,
+          #ffd700 0%,
+          #fff 20%,
+          #ffd700 40%,
+          #ffd700 60%,
+          #fff 80%,
+          #ffd700 100%
+        ); /* Gradiente para el brillo */
+        background-size: 200% 100%; /* Duplica el tamaño para el movimiento */
+        animation: shine 12s linear infinite; /* Animación de brillo - Duración aumentada a 6s */
+      }
+
+      /* Keyframes para la animación de brillo del título */
+      @keyframes shine {
+        0% {
+          background-position: 200% 0; /* Empieza el gradiente a la izquierda */
+        }
+        100% {
+          background-position: -200% 0; /* Termina el gradiente a la derecha */
+        }
+      }
+
+      .trophy {
+        width: 40px;
+        height: 40px;
+        vertical-align: middle;
+        animation: trophyScaleShine 2s ease-in-out infinite; /* Nueva animación de escala y brillo */
+      }
+
+      /* Keyframes para la animación de brillo de los trofeos con cambio de tamaño */
+      @keyframes trophyScaleShine {
+        0% {
+          transform: scale(1); /* Tamaño normal */
+          filter: drop-shadow(
+            0 0 5px rgba(255, 215, 0, 0.5)
+          ); /* Brillo inicial */
+        }
+        50% {
+          transform: scale(1.3); /* Más grande */
+          filter: drop-shadow(
+            0 0 20px rgba(255, 215, 0, 0.9)
+          ); /* Brillo intenso */
+        }
+        100% {
+          transform: scale(1); /* Vuelve al tamaño normal */
+          filter: drop-shadow(
+            0 0 5px rgba(255, 215, 0, 0.5)
+          ); /* Brillo inicial */
+        }
+      }
+
+      .countdown {
+        font-size: 1.4em;
+        margin-bottom: 20px;
+        font-weight: 600;
+        position: relative;
+        z-index: 3;
+      }
+
+      .countdown span {
+        margin: 0 8px;
+        color: #ffd700;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+
+      .video-frame {
+        background: black;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 3px solid silver;
+        position: relative;
+        max-width: 100%;
+        z-index: 2;
+      }
+
+      .video-frame iframe {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border: none;
+      }
+
+      .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5em;
+        font-weight: bold;
+        z-index: 10;
+        cursor: pointer;
+        border-radius: 12px;
+      }
+
+      .video-overlay:hover {
+        background-color: rgba(0, 0, 0, 0.85);
+      }
+
+      .info-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.9);
+        padding: 15px 25px;
+        border-radius: 10px;
+        color: white;
+        font-size: 1.2em;
+        z-index: 100;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s;
+      }
+
+      .info-message.show {
+        opacity: 1;
+      }
+
+      .ball {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        z-index: 1;
+        pointer-events: none;
+        transition: transform 0.1s;
+        filter: blur(2px);
+        opacity: 0.6;
+      }
+
+      .gala-image {
+        width: 300px; /* Adjust as needed */
+        height: auto; /* Maintain aspect ratio */
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      }
+
+      .polideportivo-logo {
+        width: 300px; /* Same width as the poster */
+        height: 25%; /* Approximately 20% of 300px, but set explicitly for consistency */
+        object-fit: contain; /* Ensures the image fits without distortion */
+        margin-top: 5%; /* Space above the poster */
+        margin-bottom: 5%; /* Space below the poster */
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Media Queries para responsividad */
+      @media (max-width: 1024px) {
+        .content-wrapper {
+          flex-direction: column; /* Stack on smaller screens */
+          gap: 20px;
+        }
+        .gala-image,
+        .polideportivo-logo {
+          width: 80%; /* Adjust width for smaller screens */
+          max-width: 300px; /* Limit maximum width */
+        }
+        .polideportivo-logo {
+          height: auto; /* Allow height to scale with width */
+          max-height: 60px; /* Limit max height to maintain proportion */
+        }
+        .gala-title {
+          font-size: 2.5em;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .gala-title {
+          font-size: 2em;
+        }
+        .countdown {
+          font-size: 1.2em;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .gala-title {
+          font-size: 1.5em;
+          gap: 10px;
+        }
+        .trophy {
+          width: 30px;
+          height: 30px;
+        }
+        .countdown {
+          font-size: 1em;
+        }
+        .gala-container {
+          padding: 20px 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="content-wrapper">
+        <div class="image-with-logos">
+          <img
+            src="imgs/logo_polideportivo.jpg"
+            alt="Logo Polideportivo"
+            class="polideportivo-logo"
+          />
+          <img
+            src="imgs/cartel_gala.jpg"
+            alt="Cartel de la Gala"
+            class="gala-image"
+          />
+          <img
+            src="imgs/logo_polideportivo.jpg"
+            alt="Logo Polideportivo"
+            class="polideportivo-logo"
+          />
+        </div>
+
+        <div class="gala-container" ref="container">
+          <h1 class="gala-title">
+            <img src="imgs/trofeo2.png" alt="Trofeo izquierdo" class="trophy" />
+            {{ galaTitle }}
+            <img src="imgs/trofeo2.png" alt="Trofeo derecho" class="trophy" />
+          </h1>
+
+          <div class="countdown" v-if="!isEventStarted">
+            ¡El evento comienza en:
+            <span v-if="countdown.days > 0">{{ countdown.days }}d</span>
+            <span>{{ countdown.hours }}h</span>
+            <span>{{ countdown.minutes }}m</span>
+            <span>{{ countdown.seconds }}s</span>
+            !
+          </div>
+          <div class="countdown" v-else>¡El evento ha comenzado!</div>
+
+          <div class="video-frame">
+            <iframe
+              width="80%"
+              height="100%"
+              :src="isEventStarted ? 'https://www.youtube.com/embed/IEKSa9FVLqA?autoplay=1&mute=1' : 'https://www.youtube.com/embed/IEKSa9FVLqA'"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+            <div
+              class="video-overlay"
+              v-if="!isEventStarted"
+              @click="handleVideoClickBeforeStart"
+            >
+              El evento aún no ha comenzado
+            </div>
+          </div>
+
+          <img
+            v-for="ball in balls"
+            :key="ball.id"
+            class="ball"
+            :src="ball.imageUrl"
+            :style="{
+              left: ball.x + 'px',
+              top: ball.y + 'px',
+            }"
+          />
+        </div>
+
+        <div class="image-with-logos">
+          <img
+            src="imgs/logo_polideportivo.jpg"
+            alt="Logo Polideportivo"
+            class="polideportivo-logo"
+          />
+          <img
+            src="imgs/cartel_gala.jpg"
+            alt="Cartel de la Gala"
+            class="gala-image"
+          />
+          <img
+            src="imgs/logo_polideportivo.jpg"
+            alt="Logo Polideportivo"
+            class="polideportivo-logo"
+          />
+        </div>
+      </div>
+
+      <div class="info-message" :class="{ 'show': showMessage }">
+        El evento aún no ha comenzado
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const { createApp, onMounted, ref } = Vue;
+
+      createApp({
+        data() {
+          return {
+            galaTitle: "IX Gala del Deporte",
+            eventDate: new Date(new Date().getTime() + 5000), // 1 segundo desde ahora
+            // Months in JavaScript are 0-indexed (May is 4)
+            countdown: { days: 0, hours: 0, minutes: 0, seconds: 0 },
+            isEventStarted: false,
+            showMessage: false,
+            messageTimeout: null,
+            balls: [],
+            container: null,
+            nextBallId: 0,
+          };
+        },
+        methods: {
+          updateCountdown() {
+            const now = new Date().getTime();
+            const distance = this.eventDate.getTime() - now;
+
+            if (distance < 0) {
+              this.isEventStarted = true;
+              clearInterval(this.countdownInterval);
+            } else {
+              this.isEventStarted = false;
+              this.countdown.days = Math.floor(
+                distance / (1000 * 60 * 60 * 24)
+              );
+              this.countdown.hours = Math.floor(
+                (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+              );
+              this.countdown.minutes = Math.floor(
+                (distance % (1000 * 60 * 60)) / (1000 * 60)
+              );
+              this.countdown.seconds = Math.floor(
+                (distance % (1000 * 60)) / 1000
+              );
+            }
+          },
+          handleVideoClickBeforeStart() {
+            if (!this.isEventStarted) {
+              this.showMessage = true;
+              if (this.messageTimeout) clearTimeout(this.messageTimeout);
+              this.messageTimeout = setTimeout(() => {
+                this.showMessage = false;
+              }, 3000);
+            }
+          },
+          initBalls() {
+            this.balls = [];
+            const ballTypes = [
+              { type: "futbol", imageUrl: "imgs/balonocesto.png" },
+              { type: "tenis", imageUrl: "imgs/futbol.png" },
+              { type: "baloncesto", imageUrl: "imgs/tenis.png" },
+              { type: "voleibol", imageUrl: "imgs/voley.png" },
+            ];
+
+            ballTypes.forEach((ballData) => {
+              this.balls.push({
+                id: this.nextBallId++,
+                type: ballData.type,
+                imageUrl: ballData.imageUrl,
+                x: Math.random() * 800,
+                y: Math.random() * 400,
+                dx:
+                  (Math.random() * 0.8 + 0.5) * (Math.random() < 0.5 ? -1 : 1),
+                dy:
+                  (Math.random() * 0.8 + 0.5) * (Math.random() < 0.5 ? -1 : 1),
+              });
+            });
+          },
+          animateBalls() {
+            const container = this.$refs.container;
+            if (!container) return;
+            const ballSize = 40;
+            const move = () => {
+              if (!this.balls.length) return;
+              const currentWidth = container.clientWidth - ballSize;
+              const currentHeight = container.clientHeight - ballSize;
+
+              this.balls.forEach((ball) => {
+                ball.x += ball.dx;
+                ball.y += ball.dy;
+
+                if (ball.x < 0) {
+                  ball.x = 0;
+                  ball.dx *= -1;
+                } else if (ball.x > currentWidth) {
+                  ball.x = currentWidth;
+                  ball.dx *= -1;
+                }
+
+                if (ball.y < 0) {
+                  ball.y = 0;
+                  ball.dy *= -1;
+                } else if (ball.y > currentHeight) {
+                  ball.y = currentHeight;
+                  ball.dy *= -1;
+                }
+              });
+              requestAnimationFrame(move);
+            };
+            requestAnimationFrame(move);
+          },
+        },
+        mounted() {
+          this.updateCountdown();
+          this.countdownInterval = setInterval(this.updateCountdown, 1000);
+          this.$nextTick(() => {
+            this.container = this.$refs.container;
+            if (this.container) {
+              this.initBalls();
+              this.animateBalls();
+            } else {
+              console.error("Container ref not found!");
+            }
+          });
+        },
+        beforeUnmount() {
+          clearInterval(this.countdownInterval);
+          if (this.messageTimeout) clearTimeout(this.messageTimeout);
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
