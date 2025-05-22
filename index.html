@@ -15,7 +15,7 @@
         src: url("fonts/Glamor-Bold.ttf") format("truetype");
         font-weight: 700;
         font-style: normal;
-        font-display: swap;
+        font-display: swap; /* Para controlar cómo se carga la fuente */
       }
 
       body {
@@ -36,18 +36,20 @@
         display: flex;
         justify-content: center;
         padding: 20px;
+        /* Por defecto, lo ocultamos hasta que todo esté cargado */
         visibility: hidden;
         opacity: 0;
         transform: translateY(20px);
         transition: visibility 0s 0.8s, opacity 0.8s ease-out,
-          transform 0.8s ease-out;
+          transform 0.8s ease-out; /* Transición para mostrar y animar */
       }
 
+      /* Clase para mostrar y animar cuando esté listo */
       #app.loaded {
         visibility: visible;
         opacity: 1;
         transform: translateY(0);
-        transition-delay: 0s;
+        transition-delay: 0s; /* Reinicia el delay de la transición */
       }
 
       @keyframes fadeIn {
@@ -91,7 +93,7 @@
       }
 
       .gala-title {
-        font-family: "Glamor", "Montserrat", sans-serif;
+        font-family: "Glamor", "Montserrat", sans-serif; /* Aplicar Glamor primero */
         font-size: 3.3em;
         font-weight: 700;
         text-transform: uppercase;
@@ -131,14 +133,9 @@
         }
       }
 
-      /* Estilo para las imágenes como background-image */
-      .trophy-image {
-        width: 80px; /* Tamaño del trofeo */
+      .trophy {
+        width: 80px;
         height: 80px;
-        background-image: url("imgs/trofeo2.png"); /* Ruta de la imagen del trofeo */
-        background-size: contain; /* Ajustar imagen dentro del div */
-        background-repeat: no-repeat;
-        background-position: center;
         vertical-align: middle;
         animation: trophyScaleShine 2s ease-in-out infinite;
       }
@@ -159,10 +156,10 @@
       }
 
       .countdown {
-        font-family: "Glamor", "Montserrat", sans-serif;
+        font-family: "Glamor", "Montserrat", sans-serif; /* ¡Añadido Glamor aquí! */
         font-size: 1.4em;
         margin-bottom: 20px;
-        font-weight: 700;
+        font-weight: 700; /* Puedes mantenerlo o ajustar si quieres menos negrita */
         position: relative;
         z-index: 3;
       }
@@ -252,30 +249,23 @@
         opacity: 0.6;
       }
 
-      /* Estilos para las imágenes como background-image en los divs */
-      .gala-image-bg,
-      .polideportivo-logo-bg {
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+      .gala-image {
+        width: 100%;
+        height: auto;
+        max-width: 300px;
         border-radius: 15px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       }
 
-      .gala-image-bg {
+      .polideportivo-logo {
         width: 100%;
-        height: 200px; /* Altura fija para el div */
+        height: auto;
         max-width: 300px;
-        background-image: url("imgs/Escudo_de_Hinojosnegro - copia.jpg");
-      }
-
-      .polideportivo-logo-bg {
-        width: 100%;
-        height: 200px; /* Altura fija para el div */
-        max-width: 300px;
+        object-fit: contain;
         margin-top: 5%;
         margin-bottom: 5%;
-        background-image: url("imgs/logo_polideportivo.jpg");
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       }
 
       .social-media-buttons {
@@ -286,11 +276,11 @@
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         background-color: white;
         display: flex;
-        flex-direction: column;
+        flex-direction: column; /* Por defecto vertical */
         align-items: center;
         justify-content: space-around;
         padding: 10px 0;
-        margin-top: 20px;
+        margin-top: 20px; /* Añade un poco de espacio */
       }
 
       .social-media-buttons a {
@@ -322,8 +312,8 @@
           flex-direction: column;
           gap: 20px;
         }
-        .gala-image-bg,
-        .polideportivo-logo-bg,
+        .gala-image,
+        .polideportivo-logo,
         .social-media-buttons {
           width: 80%;
           max-width: 300px;
@@ -348,17 +338,22 @@
           gap: 15px;
         }
 
-        .gala-image-bg {
+        .gala-image {
           width: 50%;
-          height: 75px; /* Altura más pequeña para móvil */
+          height: 75px;
           max-width: 75px;
+          border-radius: 15px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
-        .polideportivo-logo-bg {
+        .polideportivo-logo {
           width: 25%;
-          height: 75px; /* Altura más pequeña para móvil */
+          height: auto;
           max-width: 120px;
+          object-fit: contain;
           margin: 0;
+          border-radius: 15px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
         .social-media-buttons {
@@ -377,7 +372,7 @@
         .gala-container {
           padding: 30px 20px;
         }
-        .trophy-image {
+        .trophy {
           width: 30px;
           height: 30px;
         }
@@ -402,7 +397,7 @@
         .gala-container {
           padding: 30px 20px;
         }
-        .trophy-image {
+        .trophy {
           width: 40px;
           height: 40px;
         }
@@ -421,30 +416,30 @@
         /* Mostrar botones de redes sociales en fila */
         .social-media-buttons {
           display: flex;
-          flex-direction: row;
-          justify-content: center;
-          width: 100%;
-          max-width: none;
+          flex-direction: row; /* Cambiar a fila */
+          justify-content: center; /* Centrar los botones en la fila */
+          width: 100%; /* Ocupar todo el ancho disponible */
+          max-width: none; /* Eliminar el max-width para que se ajusten */
           padding: 10px;
           margin-top: 20px;
-          box-shadow: none;
-          background-color: transparent;
-          border-radius: 0;
+          box-shadow: none; /* Opcional: quitar la sombra */
+          background-color: transparent; /* Opcional: quitar el fondo blanco */
+          border-radius: 0; /* Opcional: quitar el borde redondeado */
         }
 
         .social-media-buttons a {
-          display: none;
+          display: none; /* Oculta los enlaces de texto originales */
         }
 
         .social-media-buttons .social-icon-wrapper {
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 40px;
-          height: 40px;
-          background-color: #001f3f;
-          border-radius: 50%;
-          margin: 0 5px;
+          width: 40px; /* Tamaño del círculo */
+          height: 40px; /* Tamaño del círculo */
+          background-color: #001f3f; /* Color de fondo del círculo */
+          border-radius: 50%; /* Hacerlo circular */
+          margin: 0 5px; /* Espacio entre los círculos */
           transition: background-color 0.3s ease;
         }
 
@@ -452,23 +447,9 @@
           background-color: #003366;
         }
 
-        /* Estilo para los iconos de redes sociales como background-image */
-        .social-icon {
+        .social-media-buttons .social-icon-wrapper img {
+          height: 24px; /* Tamaño más pequeño para los iconos en móvil */
           width: 24px;
-          height: 24px;
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: center;
-        }
-
-        .social-icon.instagram {
-          background-image: url("imgs/instagram.png");
-        }
-        .social-icon.youtube {
-          background-image: url("imgs/youtube.png");
-        }
-        .social-icon.facebook {
-          background-image: url("imgs/facebook.png");
         }
       }
     </style>
@@ -477,16 +458,28 @@
     <div id="app">
       <div class="content-wrapper">
         <div class="image-with-logos">
-          <div class="polideportivo-logo-bg"></div>
-          <div class="gala-image-bg"></div>
-          <div class="polideportivo-logo-bg"></div>
+          <img
+            src="imgs/logo_polideportivo.jpg"
+            alt="Logo Polideportivo"
+            class="polideportivo-logo"
+          />
+          <img
+            src="imgs/Escudo_de_Hinojosnegro - copia.jpg"
+            alt="Cartel de la Gala"
+            class="gala-image"
+          />
+          <img
+            src="imgs/logo_polideportivo.jpg"
+            alt="Logo Polideportivo"
+            class="polideportivo-logo"
+          />
         </div>
 
         <div class="gala-container" ref="container">
           <h1 class="gala-title">
-            <div class="trophy-image"></div>
+            <img src="imgs/trofeo2.png" alt="Trofeo izquierdo" class="trophy" />
             {{ galaTitle }}
-            <div class="trophy-image"></div>
+            <img src="imgs/trofeo2.png" alt="Trofeo derecho" class="trophy" />
           </h1>
           <div class="screen-size-display">
             Tamaño de pantalla: {{ screenWidth }}px (ancho) x {{ screenHeight
@@ -509,7 +502,7 @@
               height="100%"
               :src="
                 isEventStarted
-                  ? 'https://www.youtube.com/embed/dQw4w9WgXcQ' // Ejemplo de video real al iniciar
+                  ? 'https://www.youtube.com/embed/SsYXnH9lzCY?si=vopy98XlDzN6te-0' // Ejemplo de video real al iniciar
                   : 'about:blank' // No carga nada antes de que empiece el evento
               "
               title="YouTube video player"
@@ -533,15 +526,12 @@
                 href="https://www.instagram.com/deporteshinojos/"
                 target="_blank"
               >
-                <div class="social-icon instagram"></div>
+                <img src="imgs/instagram.png" alt="Instagram" />
               </a>
             </div>
             <div class="social-icon-wrapper">
-              <a
-                href="https://www.youtube.com/channel/UC-your-channel-id"
-                target="_blank"
-              >
-                <div class="social-icon youtube"></div>
+              <a href="https://www.youtube.com/c/HinojosTV" target="_blank">
+                <img src="imgs/youtube.png" alt="YouTube" />
               </a>
             </div>
             <div class="social-icon-wrapper">
@@ -549,7 +539,7 @@
                 href="https://www.facebook.com/DeportesHinojos/?locale=es_ES"
                 target="_blank"
               >
-                <div class="social-icon facebook"></div>
+                <img src="imgs/facebook.png" alt="Facebook" />
               </a>
             </div>
           </div>
@@ -574,19 +564,24 @@
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
-      const { createApp } = Vue;
+      const { createApp } = Vue; // No necesitamos onMounted ni ref directamente aquí
 
+      // Definimos la aplicación Vue
       const app = createApp({
         data() {
           return {
             galaTitle: "IX Gala del Deporte Hinojos",
-            eventDate: new Date(Date.now() + 120000), // 2 minutos desde ahora para probar
+            // --- ¡IMPORTANTE! Para probar, el contador mostrará 2 minutos desde que cargas la página. ---
+            // Cuando quieras usar la fecha real del evento, CAMBIA esta línea por:
+            // eventDate: new Date(2025, 5, 22, 18, 0, 0), // Ejemplo: 22 de junio de 2025, a las 18:00:00 (Mes 5 es Junio)
+            eventDate: new Date(Date.now() + 5000), // 2 minutos desde ahora para probar (Date.now() es más directo)
+            // -------------------------------------------------------------------------------------
             countdown: { days: 0, hours: 0, minutes: 0, seconds: 0 },
             isEventStarted: false,
             showMessage: false,
             messageTimeout: null,
             balls: [],
-            container: null,
+            container: null, // Mantendremos esta referencia
             nextBallId: 0,
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
@@ -594,12 +589,14 @@
         },
         methods: {
           updateCountdown() {
-            const now = Date.now();
+            const now = Date.now(); // Usamos Date.now() directamente
             const distance = this.eventDate.getTime() - now;
 
             if (distance < 0) {
               this.isEventStarted = true;
               clearInterval(this.countdownInterval);
+              // Si tienes un video en directo, actualiza el src del iframe aquí
+              // this.$refs.videoFrame.src = "URL_DE_TU_VIDEO_EN_DIRECTO_REAL";
             } else {
               this.isEventStarted = false;
               this.countdown.days = Math.floor(
@@ -650,8 +647,8 @@
           },
           animateBalls() {
             const container = this.$refs.container;
-            if (!container) return;
-            const ballSize = 60;
+            if (!container) return; // Salir si el contenedor no está disponible aún
+            const ballSize = 60; // Tamaño de las bolas
             const move = () => {
               if (!this.balls.length) return;
               const currentWidth = container.clientWidth - ballSize;
@@ -661,6 +658,7 @@
                 ball.x += ball.dx;
                 ball.y += ball.dy;
 
+                // Rebotar en los bordes del contenedor
                 if (ball.x < 0) {
                   ball.x = 0;
                   ball.dx *= -1;
@@ -677,18 +675,21 @@
                   ball.dy *= -1;
                 }
               });
-              requestAnimationFrame(move);
+              requestAnimationFrame(move); // Continuar la animación
             };
-            requestAnimationFrame(move);
+            requestAnimationFrame(move); // Iniciar la animación
           },
           updateScreenSize() {
             this.screenWidth = window.innerWidth;
             this.screenHeight = window.innerHeight;
           },
+          // Nuevo método para inicializar todo lo que depende del DOM y del tiempo
           initializeAppFeatures() {
-            this.updateCountdown();
-            this.countdownInterval = setInterval(this.updateCountdown, 1000);
+            this.updateCountdown(); // Actualiza el contador una vez al inicio
+            this.countdownInterval = setInterval(this.updateCountdown, 1000); // Inicia el intervalo
 
+            // Asegurarse de que $refs.container esté disponible antes de usarlo para las bolas
+            // Vue garantiza que los refs estén disponibles en `mounted` o después de que el DOM esté actualizado.
             this.container = this.$refs.container;
             if (this.container) {
               this.initBalls();
@@ -702,6 +703,8 @@
           },
         },
         mounted() {
+          // Aquí llamamos a la función principal de inicialización que se ejecutará una vez que el componente esté montado
+          // Esto asegura que `$refs` ya está disponible.
           this.initializeAppFeatures();
         },
         beforeUnmount() {
@@ -711,9 +714,11 @@
         },
       });
 
+      // Lógica para esperar la carga del DOM y las fuentes
       Promise.all([
-        document.fonts.ready,
+        document.fonts.ready, // Espera a que todas las fuentes se carguen
         new Promise((resolve) => {
+          // Espera a que el DOM esté cargado
           if (document.readyState === "loading") {
             document.addEventListener("DOMContentLoaded", resolve);
           } else {
@@ -722,14 +727,16 @@
         }),
       ])
         .then(() => {
+          // Una vez que el DOM y las fuentes estén listas, monta la app Vue y la muestra
           app.mount("#app");
           const appElement = document.getElementById("app");
           if (appElement) {
-            appElement.classList.add("loaded");
+            appElement.classList.add("loaded"); // Agrega la clase 'loaded' para mostrar y animar
           }
         })
         .catch((error) => {
           console.error("Error al cargar fuentes o DOM:", error);
+          // Si hay un error, intenta montar y mostrar la app de todas formas.
           app.mount("#app");
           const appElement = document.getElementById("app");
           if (appElement) {
