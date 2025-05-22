@@ -376,17 +376,25 @@
           gap: 10px;
         }
 
-        /* Modificación para el aspect ratio en pantallas de 480px o menos */
+        /* Modificación CLAVE: Aplicar max-height al CONTENEDOR del video */
+        .video-frame {
+          max-height: 100px; /* Limita la altura máxima del div contenedor */
+          /* Asegúrate de que el contenido interno (iframe) se ajuste */
+          display: flex; /* Mantenemos flex para centrar el iframe si es necesario */
+          justify-content: center;
+          align-items: center;
+        }
+
+        /* Asegura que el iframe se adapte DENTRO de los 100px de su padre */
         .video-frame iframe {
-          /* Aquí es donde realizamos el cambio clave */
-          max-height: 100px; /* Establece la altura máxima */
-          width: 100%; /* Asegura que el ancho se mantenga al 100% */
-          /* Eliminar 'aspect-ratio' si quieres que 'max-height' tenga prioridad */
-          /* aspect-ratio: 4 / 3; /* Comenta o elimina si max-height es el objetivo principal */
+          width: 100%;
+          height: 100%; /* Ocupará el 100% del max-height del padre (100px) */
+          /* Puedes dejar o quitar aspect-ratio aquí, pero 'height: 100%' sobreescribirá su altura */
+          aspect-ratio: 4 / 3; /* Si lo dejas, puede que se vea "cortado" si el ancho es muy grande */
         }
 
         /* En 480px, los estilos de .social-media-buttons se mantienen como ya estaban definidos en 1024px,
-        a menos que quieras un cambio específico. Aquí solo se ajusta el tamaño. */
+          a menos que quieras un cambio específico. Aquí solo se ajusta el tamaño. */
         .social-media-buttons {
           /* flex-direction: row; se hereda de 1024px */
           /* justify-content: center; se hereda de 1024px */
