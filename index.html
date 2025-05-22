@@ -36,18 +36,20 @@
         display: flex;
         justify-content: center;
         padding: 20px;
+        /* Por defecto, lo ocultamos hasta que todo esté cargado */
         visibility: hidden;
         opacity: 0;
         transform: translateY(20px);
         transition: visibility 0s 0.8s, opacity 0.8s ease-out,
-          transform 0.8s ease-out;
+          transform 0.8s ease-out; /* Transición para mostrar y animar */
       }
 
+      /* Clase para mostrar y animar cuando esté listo */
       #app.loaded {
         visibility: visible;
         opacity: 1;
         transform: translateY(0);
-        transition-delay: 0s;
+        transition-delay: 0s; /* Reinicia el delay de la transición */
       }
 
       @keyframes fadeIn {
@@ -87,11 +89,11 @@
         text-align: center;
         flex-grow: 1;
         position: relative;
-        overflow: hidden; /* Importante para que las bolas no se salgan visualmente del contenedor padre aunque reboten lógicamente */
+        overflow: hidden;
       }
 
       .gala-title {
-        font-family: "Glamor", "Montserrat", sans-serif;
+        font-family: "Glamor", "Montserrat", sans-serif; /* Aplicar Glamor primero */
         font-size: 3.3em;
         font-weight: 700;
         text-transform: uppercase;
@@ -104,6 +106,7 @@
         gap: 15px;
         position: relative;
         z-index: 3;
+        /* position: relative; Ya está arriba */
         display: inline-flex;
         -webkit-text-fill-color: transparent;
         -webkit-background-clip: text;
@@ -153,10 +156,10 @@
       }
 
       .countdown {
-        font-family: "Glamor", "Montserrat", sans-serif;
+        font-family: "Glamor", "Montserrat", sans-serif; /* ¡Añadido Glamor aquí! */
         font-size: 1.4em;
         margin-bottom: 20px;
-        font-weight: 700;
+        font-weight: 700; /* Puedes mantenerlo o ajustar si quieres menos negrita */
         position: relative;
         z-index: 3;
       }
@@ -236,12 +239,12 @@
       }
 
       .ball {
-        width: 60px; /* Tamaño por defecto */
-        height: 60px; /* Tamaño por defecto */
+        width: 60px;
+        height: 60px;
         position: absolute;
         z-index: 1;
         pointer-events: none;
-        /* transition: transform 0.1s; /* Eliminado para quitar la estela */
+        transition: transform 0.1s;
         filter: blur(2px);
         opacity: 0.6;
       }
@@ -265,37 +268,44 @@
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       }
 
+      /* --- ESTILOS MODIFICADOS PARA BOTONES DE REDES SOCIALES --- */
       .social-media-buttons {
         width: 100%;
+        /* max-width: 300px; /* Descomentar si se desea un ancho máximo para la columna */
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
+        flex-direction: column; /* Por defecto: iconos en columna */
+        align-items: center; /* Centra los iconos en la columna */
+        gap: 15px; /* Espacio entre los iconos */
         padding: 10px 0;
         margin-top: 20px;
-        background-color: transparent;
-        box-shadow: none;
-        border-radius: 0;
+        background-color: transparent; /* Sin fondo de caja */
+        box-shadow: none; /* Sin sombra de caja */
+        border-radius: 0; /* Sin bordes redondeados para la caja */
       }
 
       .social-media-buttons a {
-        display: inline-block;
-        line-height: 0;
+        display: inline-block; /* Para que el enlace envuelva bien la imagen */
+        line-height: 0; /* Ajuste para evitar espacio extra bajo la imagen */
         text-decoration: none;
+        /* Se eliminan estilos de botones de texto (background, color, padding específico de texto) */
       }
 
       .social-media-buttons a img {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.2s ease-in-out;
+        width: 48px; /* Tamaño de la imagen/icono */
+        height: 48px; /* Mismo alto y ancho para círculo perfecto */
+        border-radius: 50%; /* Hace la imagen circular */
+        object-fit: cover; /* Asegura que la imagen cubra el círculo sin distorsionarse */
+        display: block; /* Evita espacio extra */
+        transition: transform 0.2s ease-in-out; /* Efecto suave al pasar el ratón */
+        /* box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombra opcional para dar profundidad */
       }
 
       .social-media-buttons a:hover img {
-        transform: scale(1.12);
+        transform: scale(
+          1.12
+        ); /* Agranda un poco la imagen al pasar el ratón */
       }
+      /* --- FIN DE ESTILOS MODIFICADOS --- */
 
       .screen-size-display {
         font-size: 0.9em;
@@ -311,11 +321,14 @@
         }
         .gala-image,
         .polideportivo-logo {
+          /* No se incluye .social-media-buttons aquí directamente */
           width: 80%;
           max-width: 300px;
         }
         .social-media-buttons {
+          /* Si se quiere aplicar el width: 80% también aquí */
           width: 80%;
+          /* max-width: 300px; /* Ya está en la base o ajustar */
         }
         .gala-title {
           font-size: 2.5em;
@@ -327,6 +340,7 @@
           flex-direction: column;
           gap: 20px;
         }
+
         .image-with-logos {
           flex-direction: row;
           flex-wrap: wrap;
@@ -335,26 +349,45 @@
           height: auto;
           gap: 15px;
         }
+
         .gala-image {
           width: 50%;
           height: 75px;
           max-width: 75px;
+          border-radius: 15px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
+
         .polideportivo-logo {
           width: 25%;
           height: auto;
           max-width: 120px;
+          object-fit: contain;
+          margin: 0;
+          border-radius: 15px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
+
+        /* Ajustes para social-media-buttons en 768px */
         .social-media-buttons {
-          width: auto;
-          gap: 10px;
+          /* La regla original para .social-media-buttons a 768px tenía:
+             width: 100%; max-width: 75px; margin: 0; padding: 5px 0;
+             Esto era para el contenedor de los botones de texto.
+             Ahora, para los iconos circulares en columna:
+          */
+          width: auto; /* Que se ajuste al contenido (iconos) o un % si se prefiere */
+          /* max-width: none; /* O un valor adecuado si siguen en columna y centrados */
+          gap: 10px; /* Espacio reducido entre iconos */
         }
+
         .social-media-buttons a img {
-          width: 40px;
+          width: 40px; /* Iconos un poco más pequeños */
           height: 40px;
         }
+        /* Fin ajustes 768px para social-media-buttons */
+
         .gala-title {
-          font-size: 1.5em;
+          font-size: 1.5em; /* Reducido de 2.5em a 1.5em */
         }
         .countdown {
           font-size: 1.2em;
@@ -363,7 +396,7 @@
           padding: 30px 20px;
         }
         .trophy {
-          width: 30px;
+          width: 30px; /* Reducido de 40px a 30px */
           height: 30px;
         }
       }
@@ -373,22 +406,35 @@
           flex-direction: column;
           gap: 10px;
         }
+
         .image-with-logos {
-          display: none;
+          display: none; /* Se oculta en pantallas muy pequeñas según el original */
         }
+
+        /* Ajustes para social-media-buttons en 480px: ahora en fila */
         .social-media-buttons {
-          flex-direction: row;
-          justify-content: center;
-          width: 100%;
-          max-width: none;
-          padding: 10px;
-          margin-top: 20px;
-          gap: 20px;
+          flex-direction: row; /* Iconos en fila */
+          justify-content: center; /* Centrados en la fila */
+          width: 100%; /* Ocupa todo el ancho */
+          max-width: none; /* Sin ancho máximo */
+          padding: 10px; /* Padding original */
+          margin-top: 20px; /* Margen superior original */
+          gap: 20px; /* Espacio entre iconos en la fila */
         }
+
+        .social-media-buttons a {
+          /* Los estilos anteriores de 'flex:1', 'margin', 'padding', 'font-size' para 'a' no aplican */
+        }
+
         .social-media-buttons a img {
-          width: 36px;
-          height: 36px;
+          width: 50px; /* Tamaño de iconos para móvil */
+          height: 50px;
+          /* La regla original de .social-media-buttons a img { height: 30px; width: 16px; }
+             ha sido reemplazada por esta para iconos circulares.
+          */
         }
+        /* Fin ajustes 480px para social-media-buttons */
+
         .gala-title {
           font-size: 1.5em;
         }
@@ -402,10 +448,11 @@
           width: 40px;
           height: 40px;
         }
+
         .ball {
-          /* Tamaño de las bolas más pequeño en móviles */
           width: 20px;
           height: 20px;
+          /* Resto de estilos de .ball se mantienen */
         }
       }
     </style>
@@ -458,8 +505,8 @@
               height="100%"
               :src="
                 isEventStarted
-                  ? 'https://www.youtube.com/embed/SsYXnH9lzCY?si=vopy98XlDzN6te-0'
-                  : 'about:blank'
+                  ? 'https://www.youtube.com/embed/SsYXnH9lzCY?si=vopy98XlDzN6te-0' // Ejemplo de video real al iniciar
+                  : 'about:blank' // No carga nada antes de que empiece el evento
               "
               title="YouTube video player"
               frameborder="0"
@@ -499,7 +546,6 @@
               <img src="imgs/facebook.png" alt="Facebook" />
             </a>
           </div>
-
           <img
             v-for="ball in balls"
             :key="ball.id"
@@ -520,35 +566,32 @@
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
-      const { createApp } = Vue;
+      const { createApp } = Vue; // No necesitamos onMounted ni ref directamente aquí
 
+      // Definimos la aplicación Vue
       const app = createApp({
         data() {
           return {
             galaTitle: "IX Gala del Deporte Hinojos",
-            eventDate: new Date(Date.now() + 500000), // Aumentado tiempo para pruebas
+            // --- ¡IMPORTANTE! Para probar, el contador mostrará 5 segundos desde que cargas la página. ---
+            // Cuando quieras usar la fecha real del evento, CAMBIA esta línea por:
+            // eventDate: new Date(2025, 5, 22, 18, 0, 0), // Ejemplo: 22 de junio de 2025, a las 18:00:00 (Mes 5 es Junio)
+            eventDate: new Date(Date.now() + 5000), // 5 segundos desde ahora para probar
+            // -------------------------------------------------------------------------------------
             countdown: { days: 0, hours: 0, minutes: 0, seconds: 0 },
             isEventStarted: false,
             showMessage: false,
             messageTimeout: null,
             balls: [],
-            container: null,
+            container: null, // Mantendremos esta referencia
             nextBallId: 0,
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
-            currentBallSize: 60, // Tamaño por defecto de las bolas
           };
         },
         methods: {
-          updateCurrentBallSize() {
-            if (window.innerWidth <= 480) {
-              this.currentBallSize = 20;
-            } else {
-              this.currentBallSize = 60;
-            }
-          },
           updateCountdown() {
-            const now = Date.now();
+            const now = Date.now(); // Usamos Date.now() directamente
             const distance = this.eventDate.getTime() - now;
 
             if (distance < 0) {
@@ -582,31 +625,19 @@
           initBalls() {
             this.balls = [];
             const ballTypes = [
-              { type: "futbol", imageUrl: "imgs/balonocesto.png" },
-              { type: "tenis", imageUrl: "imgs/futbol.png" },
-              { type: "baloncesto", imageUrl: "imgs/tenis.png" },
+              { type: "futbol", imageUrl: "imgs/balonocesto.png" }, // Nota: imagen parece ser de baloncesto
+              { type: "tenis", imageUrl: "imgs/futbol.png" }, // Nota: imagen parece ser de fútbol
+              { type: "baloncesto", imageUrl: "imgs/tenis.png" }, // Nota: imagen parece ser de tenis
               { type: "voleibol", imageUrl: "imgs/voley.png" },
             ];
-
-            const container = this.container;
-            if (!container) {
-              console.warn(
-                "Contenedor de bolas no encontrado durante la inicialización."
-              );
-              return;
-            }
-
-            const ballSize = this.currentBallSize; // Usar tamaño dinámico
-            const maxX = Math.max(0, container.clientWidth - ballSize);
-            const maxY = Math.max(0, container.clientHeight - ballSize);
 
             ballTypes.forEach((ballData) => {
               this.balls.push({
                 id: this.nextBallId++,
                 type: ballData.type,
                 imageUrl: ballData.imageUrl,
-                x: Math.random() * maxX, // Posición inicial X dentro de los límites
-                y: Math.random() * maxY, // Posición inicial Y dentro de los límites
+                x: Math.random() * 800,
+                y: Math.random() * 400,
                 dx:
                   (Math.random() * 0.8 + 0.5) * (Math.random() < 0.5 ? -1 : 1),
                 dy:
@@ -615,17 +646,13 @@
             });
           },
           animateBalls() {
-            const container = this.container; // Usar this.container que se asigna en mounted/initializeAppFeatures
+            const container = this.$refs.container;
             if (!container) return;
-
-            const ballSize = this.currentBallSize; // Usar tamaño dinámico
-
+            const ballSize = 60;
             const move = () => {
-              if (!this.balls.length || !this.container) return; // Asegurar que el contenedor sigue existiendo
-
-              // Recalcular dimensiones del contenedor en cada frame por si cambia (responsive)
-              const currentWidth = this.container.clientWidth - ballSize;
-              const currentHeight = this.container.clientHeight - ballSize;
+              if (!this.balls.length) return;
+              const currentWidth = container.clientWidth - ballSize;
+              const currentHeight = container.clientHeight - ballSize;
 
               this.balls.forEach((ball) => {
                 ball.x += ball.dx;
@@ -654,35 +681,20 @@
           updateScreenSize() {
             this.screenWidth = window.innerWidth;
             this.screenHeight = window.innerHeight;
-            this.updateCurrentBallSize(); // Actualizar tamaño de bolas al cambiar tamaño de pantalla
           },
           initializeAppFeatures() {
             this.updateCountdown();
             this.countdownInterval = setInterval(this.updateCountdown, 1000);
 
-            this.container = this.$refs.container; // Asignar el ref del contenedor
-
-            this.updateCurrentBallSize(); // Establecer tamaño inicial de las bolas
-
+            this.container = this.$refs.container;
             if (this.container) {
               this.initBalls();
               this.animateBalls();
             } else {
-              // Reintentar obtener el contenedor después de un breve retraso si no está disponible inmediatamente
-              this.$nextTick(() => {
-                this.container = this.$refs.container;
-                if (this.container) {
-                  this.initBalls();
-                  this.animateBalls();
-                } else {
-                  console.warn(
-                    "Container ref not found after nextTick. Balls animation skipped."
-                  );
-                }
-              });
+              console.warn("Container ref not found. Balls animation skipped.");
             }
 
-            this.updateScreenSize(); // También llama a updateCurrentBallSize
+            this.updateScreenSize();
             window.addEventListener("resize", this.updateScreenSize);
           },
         },
