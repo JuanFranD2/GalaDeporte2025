@@ -42,6 +42,8 @@
         transform: translateY(20px);
         transition: visibility 0s 0.8s, opacity 0.8s ease-out,
           transform 0.8s ease-out; /* Transición para mostrar y animar */
+        height: 100vh; /* Asegura que #app ocupe toda la altura visible */
+        box-sizing: border-box; /* Incluye padding en la altura total */
       }
 
       /* Clase para mostrar y animar cuando esté listo */
@@ -68,7 +70,7 @@
         align-items: center;
         gap: 30px;
         width: 100%;
-        height: 100%;
+        height: 100%; /* Permite que el contenido se estire dentro de #app */
         justify-content: center;
       }
 
@@ -87,6 +89,11 @@
         flex-grow: 1;
         position: relative;
         overflow: hidden;
+        display: flex; /* Añadido para flexbox */
+        flex-direction: column; /* Organiza los elementos en columna */
+        justify-content: space-between; /* Distribuye el espacio entre elementos */
+        height: 100%; /* Asegura que el contenedor ocupe la altura disponible */
+        box-sizing: border-box; /* Incluye padding en la altura total */
       }
 
       .gala-title {
@@ -103,7 +110,6 @@
         gap: 15px;
         position: relative;
         z-index: 3;
-        /* position: relative; Ya está arriba */
         display: inline-flex;
         -webkit-text-fill-color: transparent;
         -webkit-background-clip: text;
@@ -185,11 +191,16 @@
         position: relative;
         max-width: 100%;
         z-index: 2;
+        flex-grow: 1; /* Permite que el video ocupe el espacio disponible */
+        display: flex; /* Añadido para que el iframe se adapte bien */
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px; /* Espacio antes de los botones sociales */
       }
 
       .video-frame iframe {
         width: 100%;
-        height: 100px;
+        height: 100%; /* Modificado: ocupa el 100% del alto del padre flexible */
         aspect-ratio: 16 / 9;
         border: none;
       }
@@ -268,9 +279,8 @@
 
       /* --- ESTILOS MODIFICADOS PARA BOTONES DE REDES SOCIALES --- */
       .social-media-buttons {
+        display: none; /* Por defecto, oculto */
         width: 100%;
-        /* max-width: 300px; /* Descomentar si se desea un ancho máximo para la columna */
-        display: flex;
         flex-direction: column; /* Por defecto: iconos en columna */
         align-items: center; /* Centra los iconos en la columna */
         gap: 15px; /* Espacio entre los iconos */
@@ -285,7 +295,6 @@
         display: inline-block; /* Para que el enlace envuelva bien la imagen */
         line-height: 0; /* Ajuste para evitar espacio extra bajo la imagen */
         text-decoration: none;
-        /* Se eliminan estilos de botones de texto (background, color, padding específico de texto) */
       }
 
       .social-media-buttons a img {
@@ -295,7 +304,6 @@
         object-fit: cover; /* Asegura que la imagen cubra el círculo sin distorsionarse */
         display: block; /* Evita espacio extra */
         transition: transform 0.2s ease-in-out; /* Efecto suave al pasar el ratón */
-        /* box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombra opcional para dar profundidad */
       }
 
       .social-media-buttons a:hover img {
@@ -317,15 +325,8 @@
           flex-direction: column;
           gap: 20px;
         }
-        /* No es necesario ocultar de nuevo aquí, ya lo hace .image-with-logos global */
-        /*
-        .gala-image,
-        .polideportivo-logo {
-          width: 80%;
-          max-width: 300px;
-        }
-        */
         .social-media-buttons {
+          display: flex; /* Visible en pantallas <= 1024px */
           width: 80%;
         }
         .gala-title {
@@ -338,38 +339,6 @@
           flex-direction: column;
           gap: 20px;
         }
-
-        /* No es necesario ocultar de nuevo aquí, ya lo hace .image-with-logos global */
-        /*
-        .image-with-logos {
-          flex-direction: row;
-          flex-wrap: wrap;
-          justify-content: center;
-          width: 100%;
-          height: auto;
-          gap: 15px;
-        }
-        */
-        /*
-        .gala-image {
-          width: 50%;
-          height: 75px;
-          max-width: 75px;
-          border-radius: 15px;
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-        */
-        /*
-        .polideportivo-logo {
-          width: 25%;
-          height: auto;
-          max-width: 120px;
-          object-fit: contain;
-          margin: 0;
-          border-radius: 15px;
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-        */
 
         /* Ajustes para social-media-buttons en 768px */
         .social-media-buttons {
@@ -404,14 +373,6 @@
           gap: 10px;
         }
 
-        /* No es necesario ocultar de nuevo aquí, ya lo hace .image-with-logos global */
-        /*
-        .image-with-logos {
-          display: none; /* Se oculta en pantallas muy pequeñas según el original */
-        /*
-        }
-        */
-
         /* Ajustes para social-media-buttons en 480px: ahora en fila */
         .social-media-buttons {
           flex-direction: row; /* Iconos en fila */
@@ -421,10 +382,6 @@
           padding: 10px; /* Padding original */
           margin-top: 20px; /* Margen superior original */
           gap: 20px; /* Espacio entre iconos en la fila */
-        }
-
-        .social-media-buttons a {
-          /* Los estilos anteriores de 'flex:1', 'margin', 'padding', 'font-size' para 'a' no aplican */
         }
 
         .social-media-buttons a img {
@@ -500,7 +457,7 @@
           <div class="video-frame">
             <iframe
               width="100%"
-              height="100px"
+              height="100%"
               :src="
                 isEventStarted
                   ? 'https://www.youtube.com/embed/SsYXnH9lzCY?si=vopy98XlDzN6te-0' // Ejemplo de video real al iniciar
@@ -564,9 +521,8 @@
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
-      const { createApp } = Vue; // No necesitamos onMounted ni ref directamente aquí
+      const { createApp } = Vue;
 
-      // Definimos la aplicación Vue
       const app = createApp({
         data() {
           return {
@@ -581,7 +537,7 @@
             showMessage: false,
             messageTimeout: null,
             balls: [],
-            container: null, // Mantendremos esta referencia
+            container: null,
             nextBallId: 0,
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
@@ -589,7 +545,7 @@
         },
         methods: {
           updateCountdown() {
-            const now = Date.now(); // Usamos Date.now() directamente
+            const now = Date.now();
             const distance = this.eventDate.getTime() - now;
 
             if (distance < 0) {
@@ -649,6 +605,7 @@
             const ballSize = 60;
             const move = () => {
               if (!this.balls.length) return;
+              // Ajusta los límites al tamaño actual del contenedor
               const currentWidth = container.clientWidth - ballSize;
               const currentHeight = container.clientHeight - ballSize;
 
@@ -684,13 +641,18 @@
             this.updateCountdown();
             this.countdownInterval = setInterval(this.updateCountdown, 1000);
 
-            this.container = this.$refs.container;
-            if (this.container) {
-              this.initBalls();
-              this.animateBalls();
-            } else {
-              console.warn("Container ref not found. Balls animation skipped.");
-            }
+            // Asegurarse de que el ref 'container' esté disponible
+            this.$nextTick(() => {
+              this.container = this.$refs.container;
+              if (this.container) {
+                this.initBalls();
+                this.animateBalls();
+              } else {
+                console.warn(
+                  "Container ref not found. Balls animation skipped."
+                );
+              }
+            });
 
             this.updateScreenSize();
             window.addEventListener("resize", this.updateScreenSize);
