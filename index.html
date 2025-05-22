@@ -300,6 +300,14 @@
         background-color: #003366;
       }
 
+      /* Nueva regla para las imágenes dentro de los botones de redes sociales */
+      .social-media-buttons div img {
+        width: 20px;
+        height: 20px;
+        vertical-align: middle; /* Para alinear el icono con el texto */
+        margin-right: 8px; /* Espacio entre el icono y el texto */
+      }
+
       .screen-size-display {
         font-size: 0.9em;
         color: lightgray;
@@ -435,9 +443,12 @@
           font-size: 0.9em; /* Ajustar el tamaño de la fuente */
         }
 
-        .social-media-buttons a img {
-          height: 30px; /* Tamaño más pequeño para los iconos en móvil */
-          width: 16px;
+        /* Esta es la regla clave que debes añadir */
+        .social-media-buttons div img {
+          height: 20px; /* Establece la altura a 20px */
+          width: 20px; /* Establece el ancho a 20px */
+          vertical-align: middle;
+          margin-right: 5px; /* Ajusta el margen si es necesario */
         }
       }
     </style>
@@ -510,7 +521,7 @@
 
           <div class="social-media-buttons">
             <div>
-              <img src="imgs/instagram.png" alt="">
+              <img src="imgs/instagram.png" alt="" />
               <a
                 href="https://www.instagram.com/deporteshinojos/"
                 target="_blank"
@@ -518,13 +529,13 @@
               >
             </div>
             <div>
-              <img src="imgs/youtube.png" alt="">
+              <img src="imgs/youtube.png" alt="" />
               <a href="https://www.youtube.com/c/HinojosTV" target="_blank"
                 >YouTube</a
               >
             </div>
             <div>
-              <img src="imgs/facebook.png" alt="">
+              <img src="imgs/facebook.png" alt="" />
               <a
                 href="https://www.facebook.com/DeportesHinojos/?locale=es_ES"
                 target="_blank"
