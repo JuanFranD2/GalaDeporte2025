@@ -378,13 +378,15 @@
 
         /* Modificación para el aspect ratio en pantallas de 480px o menos */
         .video-frame iframe {
-          aspect-ratio: 4 / 3; /* Cambiado a 4:3 para pantallas pequeñas */
-          height: auto;
-          max-height: 100px;
+          /* Aquí es donde realizamos el cambio clave */
+          max-height: 100px; /* Establece la altura máxima */
+          width: 100%; /* Asegura que el ancho se mantenga al 100% */
+          /* Eliminar 'aspect-ratio' si quieres que 'max-height' tenga prioridad */
+          /* aspect-ratio: 4 / 3; /* Comenta o elimina si max-height es el objetivo principal */
         }
 
         /* En 480px, los estilos de .social-media-buttons se mantienen como ya estaban definidos en 1024px,
-            a menos que quieras un cambio específico. Aquí solo se ajusta el tamaño. */
+        a menos que quieras un cambio específico. Aquí solo se ajusta el tamaño. */
         .social-media-buttons {
           /* flex-direction: row; se hereda de 1024px */
           /* justify-content: center; se hereda de 1024px */
