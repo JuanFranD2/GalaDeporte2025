@@ -37,6 +37,15 @@
         display: flex;
         justify-content: center;
         padding: 20px;
+        /* Estilos de transición para la aplicación principal */
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+      }
+
+      #app.loaded {
+        opacity: 1;
+        transform: translateY(0);
       }
 
       .content-wrapper {
@@ -419,7 +428,7 @@
     </style>
   </head>
   <body>
-    <div id="app">
+    <div id="app" :class="{ 'loaded': isLoaded }">
       <div class="content-wrapper">
         <div class="image-with-logos">
           <img
@@ -534,6 +543,7 @@
             nextBallId: 0,
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
+            isLoaded: false, // Nuevo estado para controlar la transición
           };
         },
         methods: {
@@ -595,7 +605,9 @@
           animateBalls() {
             const container = this.$refs.container;
             if (!container) return;
-            const ballSize = 60;
+            // Ajusta el tamaño de la bola en función del tamaño de la pantalla para la animación
+            const ballSize = window.innerWidth <= 480 ? 20 : 60;
+
             const move = () => {
               if (!this.balls.length) return;
               const currentWidth = container.clientWidth - ballSize;
@@ -641,6 +653,10 @@
             } else {
               console.error("Container ref not found!");
             }
+            // Agrega la clase 'loaded' después de un breve retraso para permitir que el CSS inicial se aplique
+            setTimeout(() => {
+              this.isLoaded = true;
+            }, 100);
           });
           window.addEventListener("resize", this.updateScreenSize);
           this.updateScreenSize();
