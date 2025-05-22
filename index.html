@@ -313,13 +313,6 @@
       }
       /* --- FIN DE ESTILOS MODIFICADOS --- */
 
-      .screen-size-display {
-        font-size: 0.9em;
-        color: lightgray;
-        margin-top: -10px;
-        margin-bottom: 20px;
-      }
-
       @media (max-width: 1024px) {
         .content-wrapper {
           flex-direction: column;
@@ -439,11 +432,6 @@
             {{ galaTitle }}
             <img src="imgs/trofeo2.png" alt="Trofeo derecho" class="trophy" />
           </h1>
-          <div class="screen-size-display">
-            Tamaño de pantalla: {{ screenWidth }}px (ancho) x {{ screenHeight
-            }}px (alto)
-          </div>
-
           <div class="countdown" v-if="!isEventStarted">
             ¡El evento comienza en:
             <span v-if="countdown.days > 0">{{ countdown.days }}d</span>
@@ -539,8 +527,8 @@
             balls: [],
             container: null,
             nextBallId: 0,
-            screenWidth: window.innerWidth,
-            screenHeight: window.innerHeight,
+            screenWidth: window.innerWidth, // Mantengo estas propiedades aunque no se muestren, por si las usas internamente en otras lógicas.
+            screenHeight: window.innerHeight, // Si no se usan, también se podrían eliminar de data().
           };
         },
         methods: {
