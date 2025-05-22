@@ -542,19 +542,24 @@
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
-      const { createApp, onMounted, ref } = Vue;
+      const { createApp } = Vue; // No necesitamos onMounted ni ref directamente aquí
 
-      createApp({
+      // Definimos la aplicación Vue
+      const app = createApp({
         data() {
           return {
             galaTitle: "IX Gala del Deporte Hinojos",
-            eventDate: new Date(new Date().getTime() + 15000), // 5 segundos desde ahora para probar
+            // --- ¡IMPORTANTE! Para probar, el contador mostrará 2 minutos desde que cargas la página. ---
+            // Cuando quieras usar la fecha real del evento, CAMBIA esta línea por:
+            // eventDate: new Date(2025, 5, 22, 18, 0, 0), // Ejemplo: 22 de junio de 2025, a las 18:00:00 (Mes 5 es Junio)
+            eventDate: new Date(Date.now() + 5000), // 2 minutos desde ahora para probar (Date.now() es más directo)
+            // -------------------------------------------------------------------------------------
             countdown: { days: 0, hours: 0, minutes: 0, seconds: 0 },
             isEventStarted: false,
             showMessage: false,
             messageTimeout: null,
             balls: [],
-            container: null,
+            container: null, // Mantendremos esta referencia
             nextBallId: 0,
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
@@ -562,12 +567,14 @@
         },
         methods: {
           updateCountdown() {
-            const now = new Date().getTime();
+            const now = Date.now(); // Usamos Date.now() directamente
             const distance = this.eventDate.getTime() - now;
 
             if (distance < 0) {
               this.isEventStarted = true;
               clearInterval(this.countdownInterval);
+              // Si tienes un video en directo, actualiza el src del iframe aquí
+              // this.$refs.videoFrame.src = "URL_DE_TU_VIDEO_EN_DIRECTO_REAL";
             } else {
               this.isEventStarted = false;
               this.countdown.days = Math.floor(
@@ -618,8 +625,8 @@
           },
           animateBalls() {
             const container = this.$refs.container;
-            if (!container) return;
-            const ballSize = 60;
+            if (!container) return; // Salir si el contenedor no está disponible aún
+            const ballSize = 60; // Tamaño de las bolas
             const move = () => {
               if (!this.balls.length) return;
               const currentWidth = container.clientWidth - ballSize;
@@ -629,6 +636,7 @@
                 ball.x += ball.dx;
                 ball.y += ball.dy;
 
+                // Rebotar en los bordes del contenedor
                 if (ball.x < 0) {
                   ball.x = 0;
                   ball.dx *= -1;
@@ -645,24 +653,44 @@
                   ball.dy *= -1;
                 }
               });
-              requestAnimationFrame(move);
+              requestAnimationFrame(move); // Continuar la animación
             };
-            requestAnimationFrame(move);
+            requestAnimationFrame(move); // Iniciar la animación
           },
           updateScreenSize() {
             this.screenWidth = window.innerWidth;
             this.screenHeight = window.innerHeight;
           },
+          // Nuevo método para inicializar todo lo que depende del DOM y del tiempo
+          initializeAppFeatures() {
+            this.updateCountdown(); // Actualiza el contador una vez al inicio
+            this.countdownInterval = setInterval(this.updateCountdown, 1000); // Inicia el intervalo
+
+            // Asegurarse de que $refs.container esté disponible antes de usarlo para las bolas
+            // Vue garantiza que los refs estén disponibles en `mounted` o después de que el DOM esté actualizado.
+            this.container = this.$refs.container;
+            if (this.container) {
+              this.initBalls();
+              this.animateBalls();
+            } else {
+              console.warn("Container ref not found. Balls animation skipped.");
+            }
+
+            this.updateScreenSize();
+            window.addEventListener("resize", this.updateScreenSize);
+          },
         },
         mounted() {
-          // No hacemos nada en mounted de Vue por ahora, esperamos a DOMContentLoaded y font.ready
+          // Aquí llamamos a la función principal de inicialización que se ejecutará una vez que el componente esté montado
+          // Esto asegura que `$refs` ya está disponible.
+          this.initializeAppFeatures();
         },
         beforeUnmount() {
           clearInterval(this.countdownInterval);
           if (this.messageTimeout) clearTimeout(this.messageTimeout);
           window.removeEventListener("resize", this.updateScreenSize);
         },
-      }).mount("#app");
+      });
 
       // Lógica para esperar la carga del DOM y las fuentes
       Promise.all([
@@ -675,33 +703,24 @@
             resolve();
           }
         }),
-      ]).then(() => {
-        // Una vez que el DOM y las fuentes estén listas, inicializa Vue y muestra la app
-        const appElement = document.getElementById("app");
-        if (appElement) {
-          appElement.classList.add("loaded"); // Agrega la clase 'loaded' para mostrar y animar
-
-          // Ahora que la app está visible, inicializamos las funciones de Vue que necesitan el DOM
-          // Accedemos a la instancia de Vue y llamamos a sus métodos
-          const vueAppInstance = Vue.apps[0]; // Asumiendo que es la primera y única instancia de Vue
-          if (vueAppInstance) {
-            vueAppInstance.updateCountdown();
-            vueAppInstance.countdownInterval = setInterval(
-              vueAppInstance.updateCountdown,
-              1000
-            );
-            vueAppInstance.container = vueAppInstance.$refs.container;
-            if (vueAppInstance.container) {
-              vueAppInstance.initBalls();
-              vueAppInstance.animateBalls();
-            } else {
-              console.error("Container ref not found after loading!");
-            }
-            vueAppInstance.updateScreenSize();
-            window.addEventListener("resize", vueAppInstance.updateScreenSize);
+      ])
+        .then(() => {
+          // Una vez que el DOM y las fuentes estén listas, monta la app Vue y la muestra
+          app.mount("#app");
+          const appElement = document.getElementById("app");
+          if (appElement) {
+            appElement.classList.add("loaded"); // Agrega la clase 'loaded' para mostrar y animar
           }
-        }
-      });
+        })
+        .catch((error) => {
+          console.error("Error al cargar fuentes o DOM:", error);
+          // Si hay un error, intenta montar y mostrar la app de todas formas.
+          app.mount("#app");
+          const appElement = document.getElementById("app");
+          if (appElement) {
+            appElement.classList.add("loaded");
+          }
+        });
     </script>
   </body>
 </html>
