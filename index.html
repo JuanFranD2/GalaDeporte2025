@@ -72,12 +72,9 @@
         justify-content: center;
       }
 
+      /* Oculta la columna de imágenes y logos */
       .image-with-logos {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: 100%;
-        justify-content: center;
+        display: none; /* ¡Modificado aquí! */
       }
 
       .gala-container {
@@ -319,16 +316,16 @@
           flex-direction: column;
           gap: 20px;
         }
+        /* No es necesario ocultar de nuevo aquí, ya lo hace .image-with-logos global */
+        /*
         .gala-image,
         .polideportivo-logo {
-          /* No se incluye .social-media-buttons aquí directamente */
           width: 80%;
           max-width: 300px;
         }
+        */
         .social-media-buttons {
-          /* Si se quiere aplicar el width: 80% también aquí */
           width: 80%;
-          /* max-width: 300px; /* Ya está en la base o ajustar */
         }
         .gala-title {
           font-size: 2.5em;
@@ -341,6 +338,8 @@
           gap: 20px;
         }
 
+        /* No es necesario ocultar de nuevo aquí, ya lo hace .image-with-logos global */
+        /*
         .image-with-logos {
           flex-direction: row;
           flex-wrap: wrap;
@@ -349,7 +348,8 @@
           height: auto;
           gap: 15px;
         }
-
+        */
+        /*
         .gala-image {
           width: 50%;
           height: 75px;
@@ -357,7 +357,8 @@
           border-radius: 15px;
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
-
+        */
+        /*
         .polideportivo-logo {
           width: 25%;
           height: auto;
@@ -367,16 +368,11 @@
           border-radius: 15px;
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
+        */
 
         /* Ajustes para social-media-buttons en 768px */
         .social-media-buttons {
-          /* La regla original para .social-media-buttons a 768px tenía:
-             width: 100%; max-width: 75px; margin: 0; padding: 5px 0;
-             Esto era para el contenedor de los botones de texto.
-             Ahora, para los iconos circulares en columna:
-          */
-          width: auto; /* Que se ajuste al contenido (iconos) o un % si se prefiere */
-          /* max-width: none; /* O un valor adecuado si siguen en columna y centrados */
+          width: auto;
           gap: 10px; /* Espacio reducido entre iconos */
         }
 
@@ -407,9 +403,13 @@
           gap: 10px;
         }
 
+        /* No es necesario ocultar de nuevo aquí, ya lo hace .image-with-logos global */
+        /*
         .image-with-logos {
           display: none; /* Se oculta en pantallas muy pequeñas según el original */
+        /*
         }
+        */
 
         /* Ajustes para social-media-buttons en 480px: ahora en fila */
         .social-media-buttons {
@@ -429,9 +429,6 @@
         .social-media-buttons a img {
           width: 50px; /* Tamaño de iconos para móvil */
           height: 50px;
-          /* La regla original de .social-media-buttons a img { height: 30px; width: 16px; }
-             ha sido reemplazada por esta para iconos circulares.
-          */
         }
         /* Fin ajustes 480px para social-media-buttons */
 
