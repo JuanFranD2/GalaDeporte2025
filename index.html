@@ -300,6 +300,10 @@
         background-color: #003366;
       }
 
+      .social-media-buttons a img {
+        display: none; /* Ocultar imágenes por defecto en pantallas grandes */
+      }
+
       .screen-size-display {
         font-size: 0.9em;
         color: lightgray;
@@ -432,12 +436,15 @@
           flex: 1; /* Para que ocupen el espacio equitativamente */
           margin: 0 5px; /* Espacio entre los botones */
           padding: 8px 12px; /* Ajustar el padding */
-          font-size: 0.9em; /* Ajustar el tamaño de la fuente */
+          font-size: 0; /* Ocultar el texto (para que solo se vea la imagen) */
+          line-height: 0; /* Asegurar que no haya espacio extra por el texto */
         }
 
         .social-media-buttons a img {
+          display: inline-block; /* Mostrar la imagen en pantallas pequeñas */
           height: 30px; /* Tamaño más pequeño para los iconos en móvil */
-          width: 16px;
+          width: 15px; /* Ancho de 15px */
+          vertical-align: middle; /* Para alinear si el padding no es perfecto */
         }
       }
     </style>
@@ -490,7 +497,7 @@
               height="100%"
               :src="
                 isEventStarted
-                  ? 'https://www.youtube.com/embed/SsYXnH9lzCY?si=vopy98XlDzN6te-0' // Ejemplo de video real al iniciar
+                  ? 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1' // Ejemplo de video real al iniciar
                   : 'about:blank' // No carga nada antes de que empiece el evento
               "
               title="YouTube video player"
@@ -509,17 +516,24 @@
           </div>
 
           <div class="social-media-buttons">
-            <a href="https://www.instagram.com/deporteshinojos/" target="_blank"
-              >Instagram</a
+            <a
+              href="https://www.instagram.com/deporteshinojos/"
+              target="_blank"
             >
-            <a href="https://www.youtube.com/c/HinojosTV" target="_blank"
-              >YouTube</a
-            >
+              <img src="imgs/instagram.png" alt="Instagram" />
+              Instagram
+            </a>
+            <a href="https://www.youtube.com/c/HinojosTV" target="_blank">
+              <img src="imgs/youtube.png" alt="YouTube" />
+              YouTube
+            </a>
             <a
               href="https://www.facebook.com/DeportesHinojos/?locale=es_ES"
               target="_blank"
-              >Facebook</a
             >
+              <img src="imgs/facebook.png" alt="Facebook" />
+              Facebook
+            </a>
           </div>
 
           <img
@@ -542,24 +556,23 @@
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
-      const { createApp } = Vue; // No necesitamos onMounted ni ref directamente aquí
+      const { createApp, onMounted, ref } = Vue;
 
-      // Definimos la aplicación Vue
-      const app = createApp({
+      createApp({
         data() {
           return {
             galaTitle: "IX Gala del Deporte Hinojos",
-            // --- ¡IMPORTANTE! Para probar, el contador mostrará 2 minutos desde que cargas la página. ---
-            // Cuando quieras usar la fecha real del evento, CAMBIA esta línea por:
-            // eventDate: new Date(2025, 5, 22, 18, 0, 0), // Ejemplo: 22 de junio de 2025, a las 18:00:00 (Mes 5 es Junio)
-            eventDate: new Date(Date.now() + 5000), // 2 minutos desde ahora para probar (Date.now() es más directo)
+            // --- Para la prueba, el contador mostrará 2 minutos desde que cargas la página. ---
+            // Cuando quieras usar la fecha real del evento, cambia esta línea por:
+            // eventDate: new Date(2025, 5, 22, 18, 0, 0), // Ejemplo: 22 de junio de 2025, a las 18:00:00 (hora local de España)
+            eventDate: new Date(new Date().getTime() + 120000), // 2 minutos desde ahora para probar
             // -------------------------------------------------------------------------------------
             countdown: { days: 0, hours: 0, minutes: 0, seconds: 0 },
             isEventStarted: false,
             showMessage: false,
             messageTimeout: null,
             balls: [],
-            container: null, // Mantendremos esta referencia
+            container: null,
             nextBallId: 0,
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
@@ -567,14 +580,12 @@
         },
         methods: {
           updateCountdown() {
-            const now = Date.now(); // Usamos Date.now() directamente
+            const now = new Date().getTime();
             const distance = this.eventDate.getTime() - now;
 
             if (distance < 0) {
               this.isEventStarted = true;
               clearInterval(this.countdownInterval);
-              // Si tienes un video en directo, actualiza el src del iframe aquí
-              // this.$refs.videoFrame.src = "URL_DE_TU_VIDEO_EN_DIRECTO_REAL";
             } else {
               this.isEventStarted = false;
               this.countdown.days = Math.floor(
@@ -625,8 +636,8 @@
           },
           animateBalls() {
             const container = this.$refs.container;
-            if (!container) return; // Salir si el contenedor no está disponible aún
-            const ballSize = 60; // Tamaño de las bolas
+            if (!container) return;
+            const ballSize = 60;
             const move = () => {
               if (!this.balls.length) return;
               const currentWidth = container.clientWidth - ballSize;
@@ -636,7 +647,6 @@
                 ball.x += ball.dx;
                 ball.y += ball.dy;
 
-                // Rebotar en los bordes del contenedor
                 if (ball.x < 0) {
                   ball.x = 0;
                   ball.dx *= -1;
@@ -653,44 +663,24 @@
                   ball.dy *= -1;
                 }
               });
-              requestAnimationFrame(move); // Continuar la animación
+              requestAnimationFrame(move);
             };
-            requestAnimationFrame(move); // Iniciar la animación
+            requestAnimationFrame(move);
           },
           updateScreenSize() {
             this.screenWidth = window.innerWidth;
             this.screenHeight = window.innerHeight;
           },
-          // Nuevo método para inicializar todo lo que depende del DOM y del tiempo
-          initializeAppFeatures() {
-            this.updateCountdown(); // Actualiza el contador una vez al inicio
-            this.countdownInterval = setInterval(this.updateCountdown, 1000); // Inicia el intervalo
-
-            // Asegurarse de que $refs.container esté disponible antes de usarlo para las bolas
-            // Vue garantiza que los refs estén disponibles en `mounted` o después de que el DOM esté actualizado.
-            this.container = this.$refs.container;
-            if (this.container) {
-              this.initBalls();
-              this.animateBalls();
-            } else {
-              console.warn("Container ref not found. Balls animation skipped.");
-            }
-
-            this.updateScreenSize();
-            window.addEventListener("resize", this.updateScreenSize);
-          },
         },
         mounted() {
-          // Aquí llamamos a la función principal de inicialización que se ejecutará una vez que el componente esté montado
-          // Esto asegura que `$refs` ya está disponible.
-          this.initializeAppFeatures();
+          // No hacemos nada en mounted de Vue por ahora, esperamos a DOMContentLoaded y font.ready
         },
         beforeUnmount() {
           clearInterval(this.countdownInterval);
           if (this.messageTimeout) clearTimeout(this.messageTimeout);
           window.removeEventListener("resize", this.updateScreenSize);
         },
-      });
+      }).mount("#app");
 
       // Lógica para esperar la carga del DOM y las fuentes
       Promise.all([
@@ -705,20 +695,59 @@
         }),
       ])
         .then(() => {
-          // Una vez que el DOM y las fuentes estén listas, monta la app Vue y la muestra
-          app.mount("#app");
+          // Una vez que el DOM y las fuentes estén listas, muestra la app y la inicializa
           const appElement = document.getElementById("app");
           if (appElement) {
             appElement.classList.add("loaded"); // Agrega la clase 'loaded' para mostrar y animar
+
+            // Accedemos a la instancia de Vue y llamamos a sus métodos de inicialización
+            // Vue.apps[0] es la primera instancia de la aplicación Vue montada
+            const vueAppInstance = Vue.apps[0];
+            if (vueAppInstance) {
+              vueAppInstance.updateCountdown();
+              vueAppInstance.countdownInterval = setInterval(
+                vueAppInstance.updateCountdown,
+                1000
+              );
+              vueAppInstance.container = vueAppInstance.$refs.container;
+              if (vueAppInstance.container) {
+                vueAppInstance.initBalls();
+                vueAppInstance.animateBalls();
+              } else {
+                console.error("Container ref not found after loading!");
+              }
+              vueAppInstance.updateScreenSize();
+              window.addEventListener(
+                "resize",
+                vueAppInstance.updateScreenSize
+              );
+            }
           }
         })
         .catch((error) => {
           console.error("Error al cargar fuentes o DOM:", error);
-          // Si hay un error, intenta montar y mostrar la app de todas formas.
-          app.mount("#app");
+          // En caso de error, intenta mostrar la app de todas formas para no dejarla en blanco
           const appElement = document.getElementById("app");
           if (appElement) {
             appElement.classList.add("loaded");
+            const vueAppInstance = Vue.apps[0];
+            if (vueAppInstance) {
+              vueAppInstance.updateCountdown();
+              vueAppInstance.countdownInterval = setInterval(
+                vueAppInstance.updateCountdown,
+                1000
+              );
+              vueAppInstance.container = vueAppInstance.$refs.container;
+              if (vueAppInstance.container) {
+                vueAppInstance.initBalls();
+                vueAppInstance.animateBalls();
+              }
+              vueAppInstance.updateScreenSize();
+              window.addEventListener(
+                "resize",
+                vueAppInstance.updateScreenSize
+              );
+            }
           }
         });
     </script>
