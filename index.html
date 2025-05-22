@@ -432,6 +432,7 @@
             {{ galaTitle }}
             <img src="imgs/trofeo2.png" alt="Trofeo derecho" class="trophy" />
           </h1>
+
           <div class="countdown" v-if="!isEventStarted">
             ¡El evento comienza en:
             <span v-if="countdown.days > 0">{{ countdown.days }}d</span>
@@ -440,7 +441,9 @@
             <span>{{ countdown.seconds }}s</span>
             !
           </div>
-          <div class="countdown" v-else>¡El evento ha comenzado!</div>
+          <div class="countdown" v-else-if="showEventStartedMessage">
+            ¡El evento ha comenzado!
+          </div>
 
           <div class="video-frame">
             <iframe
@@ -522,14 +525,34 @@
             // -------------------------------------------------------------------------------------
             countdown: { days: 0, hours: 0, minutes: 0, seconds: 0 },
             isEventStarted: false,
+            showEventStartedMessage: true, // Nueva propiedad para controlar la visibilidad del mensaje "¡El evento ha comenzado!"
+            eventStartedMessageTimeout: null, // Para guardar el temporizador
             showMessage: false,
             messageTimeout: null,
             balls: [],
             container: null,
             nextBallId: 0,
-            screenWidth: window.innerWidth, // Mantengo estas propiedades aunque no se muestren, por si las usas internamente en otras lógicas.
-            screenHeight: window.innerHeight, // Si no se usan, también se podrían eliminar de data().
+            screenWidth: window.innerWidth,
+            screenHeight: window.innerHeight,
           };
+        },
+        watch: {
+          isEventStarted(newValue) {
+            if (newValue) {
+              // Si el evento acaba de comenzar, mostrar el mensaje y programar su desaparición
+              this.showEventStartedMessage = true;
+              this.eventStartedMessageTimeout = setTimeout(() => {
+                this.showEventStartedMessage = false;
+              }, 5000); // 5000 milisegundos = 5 segundos
+            } else {
+              // Si el evento aún no ha comenzado o se reinicia, asegurarse de que el mensaje no esté visible y limpiar el temporizador
+              this.showEventStartedMessage = false;
+              if (this.eventStartedMessageTimeout) {
+                clearTimeout(this.eventStartedMessageTimeout);
+                this.eventStartedMessageTimeout = null;
+              }
+            }
+          },
         },
         methods: {
           updateCountdown() {
@@ -652,6 +675,8 @@
         beforeUnmount() {
           clearInterval(this.countdownInterval);
           if (this.messageTimeout) clearTimeout(this.messageTimeout);
+          if (this.eventStartedMessageTimeout)
+            clearTimeout(this.eventStartedMessageTimeout); // Limpiar el nuevo temporizador
           window.removeEventListener("resize", this.updateScreenSize);
         },
       });
