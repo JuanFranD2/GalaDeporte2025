@@ -281,8 +281,8 @@
       .social-media-buttons {
         display: none; /* Por defecto, oculto */
         width: 100%;
-        flex-direction: column; /* Por defecto: iconos en columna */
-        align-items: center; /* Centra los iconos en la columna */
+        /* flex-direction: column; Ya no es el valor por defecto que queremos. */
+        align-items: center; /* Centra los iconos */
         gap: 15px; /* Espacio entre los iconos */
         padding: 10px 0;
         margin-top: 20px;
@@ -318,12 +318,23 @@
           flex-direction: column;
           gap: 20px;
         }
-        .social-media-buttons {
-          display: flex; /* Visible en pantallas <= 1024px */
-          width: 80%;
-        }
         .gala-title {
           font-size: 2.5em;
+        }
+
+        /* Ajustes para social-media-buttons en 1024px y menores (ahora en fila) */
+        .social-media-buttons {
+          display: flex; /* Visible */
+          flex-direction: row; /* **Importante: Ahora en fila** */
+          justify-content: center; /* **Importante: Centrados en la fila** */
+          width: 100%;
+          max-width: none;
+          gap: 20px; /* Espacio entre iconos */
+        }
+
+        .social-media-buttons a img {
+          width: 50px; /* Un tamaño un poco más grande para este rango */
+          height: 50px;
         }
       }
 
@@ -333,20 +344,19 @@
           gap: 20px;
         }
 
-        /* Ajustes para social-media-buttons en 768px */
+        /* En 768px y menores, los botones ya están en fila por la regla anterior,
+           solo ajustamos el tamaño y el gap si es necesario. */
         .social-media-buttons {
-          width: auto;
-          gap: 10px; /* Espacio reducido entre iconos */
+          gap: 15px; /* Ligeramente menos espacio para pantallas más pequeñas */
         }
 
         .social-media-buttons a img {
-          width: 40px; /* Iconos un poco más pequeños */
-          height: 40px;
+          width: 45px; /* Iconos un poco más pequeños */
+          height: 45px;
         }
-        /* Fin ajustes 768px para social-media-buttons */
 
         .gala-title {
-          font-size: 1.5em; /* Reducido de 2.5em a 1.5em */
+          font-size: 1.5em;
         }
         .countdown {
           font-size: 1.2em;
@@ -355,7 +365,7 @@
           padding: 30px 20px;
         }
         .trophy {
-          width: 30px; /* Reducido de 40px a 30px */
+          width: 30px;
           height: 30px;
         }
       }
@@ -366,22 +376,18 @@
           gap: 10px;
         }
 
-        /* Ajustes para social-media-buttons en 480px: ahora en fila */
+        /* En 480px, los estilos de .social-media-buttons se mantienen como ya estaban definidos en 1024px,
+           a menos que quieras un cambio específico. Aquí solo se ajusta el tamaño. */
         .social-media-buttons {
-          flex-direction: row; /* Iconos en fila */
-          justify-content: center; /* Centrados en la fila */
-          width: 100%; /* Ocupa todo el ancho */
-          max-width: none; /* Sin ancho máximo */
-          padding: 10px; /* Padding original */
-          margin-top: 20px; /* Margen superior original */
-          gap: 20px; /* Espacio entre iconos en la fila */
+          /* flex-direction: row; se hereda de 1024px */
+          /* justify-content: center; se hereda de 1024px */
+          gap: 10px; /* Espacio entre iconos en la fila para móvil */
         }
 
         .social-media-buttons a img {
-          width: 50px; /* Tamaño de iconos para móvil */
-          height: 50px;
+          width: 40px; /* Tamaño de iconos para móvil */
+          height: 40px;
         }
-        /* Fin ajustes 480px para social-media-buttons */
 
         .gala-title {
           font-size: 1.5em;
