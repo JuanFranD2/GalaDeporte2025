@@ -283,6 +283,13 @@
         margin-top: 20px; /* Añade un poco de espacio */
       }
 
+      .social-media-buttons div {
+        display: flex; /* Añadir flexbox para alinear contenido */
+        align-items: center; /* Centrar verticalmente */
+        justify-content: center; /* Centrar horizontalmente */
+        width: 100%;
+      }
+
       .social-media-buttons a {
         display: block;
         width: 80%;
@@ -300,12 +307,12 @@
         background-color: #003366;
       }
 
-      /* Nueva regla para las imágenes dentro de los botones de redes sociales */
       .social-media-buttons div img {
         width: 20px;
         height: 20px;
         vertical-align: middle; /* Para alinear el icono con el texto */
-        margin-right: 8px; /* Espacio entre el icono y el texto */
+        margin-left: 8px; /* Espacio entre el texto y el icono a la izquierda */
+        margin-right: 0; /* Asegurarse de que no haya margen a la derecha */
       }
 
       .screen-size-display {
@@ -443,12 +450,12 @@
           font-size: 0.9em; /* Ajustar el tamaño de la fuente */
         }
 
-        /* Esta es la regla clave que debes añadir */
         .social-media-buttons div img {
           height: 20px; /* Establece la altura a 20px */
           width: 20px; /* Establece el ancho a 20px */
           vertical-align: middle;
-          margin-right: 5px; /* Ajusta el margen si es necesario */
+          margin-left: 5px; /* Mover el margen a la izquierda para que el icono esté a la derecha del texto */
+          margin-right: 0; /* Asegurarse de que no haya margen a la derecha */
         }
       }
     </style>
@@ -521,26 +528,26 @@
 
           <div class="social-media-buttons">
             <div>
-              <img src="imgs/instagram.png" alt="" />
               <a
                 href="https://www.instagram.com/deporteshinojos/"
                 target="_blank"
                 >Instagram</a
               >
+              <img src="imgs/instagram.png" alt="" />
             </div>
             <div>
-              <img src="imgs/youtube.png" alt="" />
               <a href="https://www.youtube.com/c/HinojosTV" target="_blank"
                 >YouTube</a
               >
+              <img src="imgs/youtube.png" alt="" />
             </div>
             <div>
-              <img src="imgs/facebook.png" alt="" />
               <a
                 href="https://www.facebook.com/DeportesHinojos/?locale=es_ES"
                 target="_blank"
                 >Facebook</a
               >
+              <img src="imgs/facebook.png" alt="" />
             </div>
           </div>
 
