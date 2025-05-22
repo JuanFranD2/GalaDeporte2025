@@ -24,19 +24,23 @@
         font-family: "Montserrat", sans-serif;
         background: linear-gradient(to bottom, #001f3f, #003366);
         color: white;
+        /* Adaptación para que ocupe toda la pantalla y el contenido se centre */
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 100vh;
-        overflow: hidden;
+        min-height: 100vh; /* Asegura que ocupe el alto completo del viewport */
+        width: 100vw; /* Asegura que ocupe el ancho completo del viewport */
+        overflow: hidden; /* Evita scrolls no deseados si el contenido es más grande */
       }
 
       #app {
         width: 100%;
-        height: 100%;
+        height: 100%; /* Asegura que #app ocupe el 100% del body */
         display: flex;
         justify-content: center;
+        align-items: center; /* Centra el content-wrapper verticalmente */
         padding: 20px;
+        box-sizing: border-box; /* Incluye padding en el cálculo del tamaño */
         /* Por defecto, lo ocultamos hasta que todo esté cargado */
         visibility: hidden;
         opacity: 0;
@@ -66,10 +70,12 @@
 
       .content-wrapper {
         display: flex;
+        /* flex-direction: column; Ya que image-with-logos está oculto, no necesitamos flex-direction row en desktop */
         align-items: center;
         gap: 30px;
         width: 100%;
-        height: 100%;
+        max-width: 900px; /* Limita el ancho máximo para pantallas grandes */
+        height: 100%; /* Permite que se estire verticalmente */
         justify-content: center;
       }
 
@@ -88,6 +94,11 @@
         flex-grow: 1;
         position: relative;
         overflow: hidden;
+        display: flex; /* Añadido para controlar el contenido interno con flexbox */
+        flex-direction: column; /* Organiza los elementos internos en columna */
+        justify-content: space-between; /* Distribuye el espacio entre los elementos */
+        height: 100%; /* Asegura que el contenedor tome la altura disponible */
+        box-sizing: border-box; /* Incluye padding en el cálculo del tamaño */
       }
 
       .gala-title {
@@ -104,7 +115,6 @@
         gap: 15px;
         position: relative;
         z-index: 3;
-        /* position: relative; Ya está arriba */
         display: inline-flex;
         -webkit-text-fill-color: transparent;
         -webkit-background-clip: text;
@@ -184,12 +194,19 @@
         overflow: hidden;
         border: 3px solid silver;
         position: relative;
-        max-width: 100%;
+        width: 100%; /* Asegura que el video ocupe el 100% del ancho disponible */
+        flex-grow: 1; /* Permite que el video crezca y ocupe el espacio disponible */
+        display: flex; /* Añadido para centrar el iframe */
+        justify-content: center; /* Centra el iframe horizontalmente */
+        align-items: center; /* Centra el iframe verticalmente */
+        margin-top: 20px; /* Espacio superior */
+        margin-bottom: 20px; /* Espacio inferior */
         z-index: 2;
       }
 
       .video-frame iframe {
         width: 100%;
+        max-width: 800px; /* Límite para el ancho del video */
         aspect-ratio: 16 / 9;
         border: none;
       }
@@ -247,61 +264,38 @@
         opacity: 0.6;
       }
 
-      .gala-image {
-        width: 100%;
-        height: auto;
-        max-width: 300px;
-        border-radius: 15px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-      }
-
-      .polideportivo-logo {
-        width: 100%;
-        height: auto;
-        max-width: 300px;
-        object-fit: contain;
-        margin-top: 5%;
-        margin-bottom: 5%;
-        border-radius: 15px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-      }
-
       /* --- ESTILOS MODIFICADOS PARA BOTONES DE REDES SOCIALES --- */
       .social-media-buttons {
         width: 100%;
-        /* max-width: 300px; /* Descomentar si se desea un ancho máximo para la columna */
         display: flex;
-        flex-direction: column; /* Por defecto: iconos en columna */
-        align-items: center; /* Centra los iconos en la columna */
-        gap: 15px; /* Espacio entre los iconos */
+        flex-direction: row; /* Cambiado a fila por defecto para mejor adaptación */
+        justify-content: center; /* Centra los iconos en la fila */
+        align-items: center;
+        gap: 20px; /* Espacio entre los iconos */
         padding: 10px 0;
         margin-top: 20px;
-        background-color: transparent; /* Sin fondo de caja */
-        box-shadow: none; /* Sin sombra de caja */
-        border-radius: 0; /* Sin bordes redondeados para la caja */
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: 0;
       }
 
       .social-media-buttons a {
-        display: inline-block; /* Para que el enlace envuelva bien la imagen */
-        line-height: 0; /* Ajuste para evitar espacio extra bajo la imagen */
+        display: inline-block;
+        line-height: 0;
         text-decoration: none;
-        /* Se eliminan estilos de botones de texto (background, color, padding específico de texto) */
       }
 
       .social-media-buttons a img {
-        width: 48px; /* Tamaño de la imagen/icono */
-        height: 48px; /* Mismo alto y ancho para círculo perfecto */
-        border-radius: 50%; /* Hace la imagen circular */
-        object-fit: cover; /* Asegura que la imagen cubra el círculo sin distorsionarse */
-        display: block; /* Evita espacio extra */
-        transition: transform 0.2s ease-in-out; /* Efecto suave al pasar el ratón */
-        /* box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombra opcional para dar profundidad */
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.2s ease-in-out;
       }
 
       .social-media-buttons a:hover img {
-        transform: scale(
-          1.12
-        ); /* Agranda un poco la imagen al pasar el ratón */
+        transform: scale(1.12);
       }
       /* --- FIN DE ESTILOS MODIFICADOS --- */
 
@@ -312,145 +306,76 @@
         margin-bottom: 20px;
       }
 
+      /* Media Queries */
       @media (max-width: 1024px) {
-        .content-wrapper {
-          flex-direction: column;
-          gap: 20px;
-        }
-        /* No es necesario ocultar de nuevo aquí, ya lo hace .image-with-logos global */
-        /*
-        .gala-image,
-        .polideportivo-logo {
-          width: 80%;
-          max-width: 300px;
-        }
-        */
-        .social-media-buttons {
-          width: 80%;
-        }
         .gala-title {
           font-size: 2.5em;
+        }
+        .trophy {
+          width: 60px;
+          height: 60px;
         }
       }
 
       @media (max-width: 768px) {
-        .content-wrapper {
-          flex-direction: column;
-          gap: 20px;
-        }
-
-        /* No es necesario ocultar de nuevo aquí, ya lo hace .image-with-logos global */
-        /*
-        .image-with-logos {
-          flex-direction: row;
-          flex-wrap: wrap;
-          justify-content: center;
-          width: 100%;
-          height: auto;
-          gap: 15px;
-        }
-        */
-        /*
-        .gala-image {
-          width: 50%;
-          height: 75px;
-          max-width: 75px;
-          border-radius: 15px;
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-        */
-        /*
-        .polideportivo-logo {
-          width: 25%;
-          height: auto;
-          max-width: 120px;
-          object-fit: contain;
-          margin: 0;
-          border-radius: 15px;
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-        */
-
-        /* Ajustes para social-media-buttons en 768px */
-        .social-media-buttons {
-          width: auto;
-          gap: 10px; /* Espacio reducido entre iconos */
-        }
-
-        .social-media-buttons a img {
-          width: 40px; /* Iconos un poco más pequeños */
-          height: 40px;
-        }
-        /* Fin ajustes 768px para social-media-buttons */
-
-        .gala-title {
-          font-size: 1.5em; /* Reducido de 2.5em a 1.5em */
-        }
-        .countdown {
-          font-size: 1.2em;
+        #app {
+          padding: 15px; /* Reduce el padding en pantallas más pequeñas */
         }
         .gala-container {
           padding: 30px 20px;
         }
+        .gala-title {
+          font-size: 1.8em;
+          gap: 10px;
+        }
         .trophy {
-          width: 30px; /* Reducido de 40px a 30px */
-          height: 30px;
+          width: 45px;
+          height: 45px;
+        }
+        .countdown {
+          font-size: 1.1em;
+        }
+        .social-media-buttons {
+          gap: 15px; /* Reduce el espacio entre botones */
+        }
+        .social-media-buttons a img {
+          width: 40px;
+          height: 40px;
         }
       }
 
       @media (max-width: 480px) {
-        .content-wrapper {
-          flex-direction: column;
-          gap: 10px;
-        }
-
-        /* No es necesario ocultar de nuevo aquí, ya lo hace .image-with-logos global */
-        /*
-        .image-with-logos {
-          display: none; /* Se oculta en pantallas muy pequeñas según el original */
-        /*
-        }
-        */
-
-        /* Ajustes para social-media-buttons en 480px: ahora en fila */
-        .social-media-buttons {
-          flex-direction: row; /* Iconos en fila */
-          justify-content: center; /* Centrados en la fila */
-          width: 100%; /* Ocupa todo el ancho */
-          max-width: none; /* Sin ancho máximo */
-          padding: 10px; /* Padding original */
-          margin-top: 20px; /* Margen superior original */
-          gap: 20px; /* Espacio entre iconos en la fila */
-        }
-
-        .social-media-buttons a {
-          /* Los estilos anteriores de 'flex:1', 'margin', 'padding', 'font-size' para 'a' no aplican */
-        }
-
-        .social-media-buttons a img {
-          width: 50px; /* Tamaño de iconos para móvil */
-          height: 50px;
-        }
-        /* Fin ajustes 480px para social-media-buttons */
-
-        .gala-title {
-          font-size: 1.5em;
-        }
-        .countdown {
-          font-size: 1.2em;
+        #app {
+          padding: 10px; /* Reduce aún más el padding */
         }
         .gala-container {
-          padding: 30px 20px;
+          padding: 20px 15px;
+        }
+        .gala-title {
+          font-size: 1.2em;
+          gap: 8px;
         }
         .trophy {
-          width: 40px;
-          height: 40px;
+          width: 30px;
+          height: 30px;
         }
-
+        .countdown {
+          font-size: 1em;
+        }
+        .social-media-buttons {
+          gap: 10px; /* Espacio mínimo entre botones */
+        }
+        .social-media-buttons a img {
+          width: 35px;
+          height: 35px;
+        }
         .ball {
-          width: 20px;
-          height: 20px;
-          /* Resto de estilos de .ball se mantienen */
+          width: 25px;
+          height: 25px;
+        }
+        .info-message {
+          font-size: 1em;
+          padding: 10px 15px;
         }
       }
     </style>
@@ -503,8 +428,8 @@
               height="100%"
               :src="
                 isEventStarted
-                  ? 'https://www.youtube.com/embed/SsYXnH9lzCY?si=vopy98XlDzN6te-0' // Ejemplo de video real al iniciar
-                  : 'about:blank' // No carga nada antes de que empiece el evento
+                  ? 'https://www.youtube.com/embed/SsYXnH9lzCY?si=vopy98XlDzN6te-0'
+                  : 'about:blank'
               "
               title="YouTube video player"
               frameborder="0"
@@ -564,24 +489,19 @@
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
-      const { createApp } = Vue; // No necesitamos onMounted ni ref directamente aquí
+      const { createApp } = Vue;
 
-      // Definimos la aplicación Vue
       const app = createApp({
         data() {
           return {
             galaTitle: "IX Gala del Deporte Hinojos",
-            // --- ¡IMPORTANTE! Para probar, el contador mostrará 5 segundos desde que cargas la página. ---
-            // Cuando quieras usar la fecha real del evento, CAMBIA esta línea por:
-            // eventDate: new Date(2025, 5, 22, 18, 0, 0), // Ejemplo: 22 de junio de 2025, a las 18:00:00 (Mes 5 es Junio)
-            eventDate: new Date(Date.now() + 5000), // 5 segundos desde ahora para probar
-            // -------------------------------------------------------------------------------------
+            eventDate: new Date(Date.now() + 5000),
             countdown: { days: 0, hours: 0, minutes: 0, seconds: 0 },
             isEventStarted: false,
             showMessage: false,
             messageTimeout: null,
             balls: [],
-            container: null, // Mantendremos esta referencia
+            container: null,
             nextBallId: 0,
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
@@ -589,7 +509,7 @@
         },
         methods: {
           updateCountdown() {
-            const now = Date.now(); // Usamos Date.now() directamente
+            const now = Date.now();
             const distance = this.eventDate.getTime() - now;
 
             if (distance < 0) {
@@ -623,9 +543,9 @@
           initBalls() {
             this.balls = [];
             const ballTypes = [
-              { type: "futbol", imageUrl: "imgs/balonocesto.png" }, // Nota: imagen parece ser de baloncesto
-              { type: "tenis", imageUrl: "imgs/futbol.png" }, // Nota: imagen parece ser de fútbol
-              { type: "baloncesto", imageUrl: "imgs/tenis.png" }, // Nota: imagen parece ser de tenis
+              { type: "futbol", imageUrl: "imgs/balonocesto.png" },
+              { type: "tenis", imageUrl: "imgs/futbol.png" },
+              { type: "baloncesto", imageUrl: "imgs/tenis.png" },
               { type: "voleibol", imageUrl: "imgs/voley.png" },
             ];
 
