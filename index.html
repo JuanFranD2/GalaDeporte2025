@@ -10,11 +10,10 @@
     />
     <style>
       /* Importar la fuente Glamor */
-      /* IMPORTANTE: Asegúrate de que 'fonts/Glamor-Bold.ttf' sea la ruta correcta a tu archivo .ttf */
       @font-face {
         font-family: "Glamor";
-        src: url("fonts/Glamor-Bold.ttf") format("truetype"); /* Formato cambiado a 'truetype' */
-        font-weight: 700; /* Asumiendo que es una versión bold de Glamor */
+        src: url("fonts/Glamor-Bold.ttf") format("truetype");
+        font-weight: 700;
         font-style: normal;
         font-display: swap; /* Para controlar cómo se carga la fuente */
       }
@@ -37,8 +36,20 @@
         display: flex;
         justify-content: center;
         padding: 20px;
-        animation: fadeIn 1s ease-out forwards; /* Added animation */
-        opacity: 0; /* Initially hidden */
+        /* Por defecto, lo ocultamos hasta que todo esté cargado */
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: visibility 0s 0.8s, opacity 0.8s ease-out,
+          transform 0.8s ease-out; /* Transición para mostrar y animar */
+      }
+
+      /* Clase para mostrar y animar cuando esté listo */
+      #app.loaded {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0s; /* Reinicia el delay de la transición */
       }
 
       @keyframes fadeIn {
@@ -644,19 +655,7 @@
           },
         },
         mounted() {
-          this.updateCountdown();
-          this.countdownInterval = setInterval(this.updateCountdown, 1000);
-          this.$nextTick(() => {
-            this.container = this.$refs.container;
-            if (this.container) {
-              this.initBalls();
-              this.animateBalls();
-            } else {
-              console.error("Container ref not found!");
-            }
-          });
-          window.addEventListener("resize", this.updateScreenSize);
-          this.updateScreenSize();
+          // No hacemos nada en mounted de Vue por ahora, esperamos a DOMContentLoaded y font.ready
         },
         beforeUnmount() {
           clearInterval(this.countdownInterval);
@@ -664,6 +663,45 @@
           window.removeEventListener("resize", this.updateScreenSize);
         },
       }).mount("#app");
+
+      // Lógica para esperar la carga del DOM y las fuentes
+      Promise.all([
+        document.fonts.ready, // Espera a que todas las fuentes se carguen
+        new Promise((resolve) => {
+          // Espera a que el DOM esté cargado
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", resolve);
+          } else {
+            resolve();
+          }
+        }),
+      ]).then(() => {
+        // Una vez que el DOM y las fuentes estén listas, inicializa Vue y muestra la app
+        const appElement = document.getElementById("app");
+        if (appElement) {
+          appElement.classList.add("loaded"); // Agrega la clase 'loaded' para mostrar y animar
+
+          // Ahora que la app está visible, inicializamos las funciones de Vue que necesitan el DOM
+          // Accedemos a la instancia de Vue y llamamos a sus métodos
+          const vueAppInstance = Vue.apps[0]; // Asumiendo que es la primera y única instancia de Vue
+          if (vueAppInstance) {
+            vueAppInstance.updateCountdown();
+            vueAppInstance.countdownInterval = setInterval(
+              vueAppInstance.updateCountdown,
+              1000
+            );
+            vueAppInstance.container = vueAppInstance.$refs.container;
+            if (vueAppInstance.container) {
+              vueAppInstance.initBalls();
+              vueAppInstance.animateBalls();
+            } else {
+              console.error("Container ref not found after loading!");
+            }
+            vueAppInstance.updateScreenSize();
+            window.addEventListener("resize", vueAppInstance.updateScreenSize);
+          }
+        }
+      });
     </script>
   </body>
 </html>
