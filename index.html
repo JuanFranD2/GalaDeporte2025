@@ -376,6 +376,13 @@
           gap: 10px;
         }
 
+        .video-frame iframe {
+          width: 100%;
+          height: 60%; /* Modificado: ocupa el 100% del alto del padre flexible */
+          aspect-ratio: 16 / 9;
+          border: none;
+        }
+
         /* En 480px, los estilos de .social-media-buttons se mantienen como ya estaban definidos en 1024px,
            a menos que quieras un cambio específico. Aquí solo se ajusta el tamaño. */
         .social-media-buttons {
