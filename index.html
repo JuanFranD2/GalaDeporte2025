@@ -260,7 +260,10 @@
       }
 
       .social-media-buttons a {
-        display: block;
+        display: flex; /* Usar flexbox para alinear icono y texto */
+        align-items: center; /* Centrar verticalmente icono y texto */
+        justify-content: center; /* Centrar horizontalmente todo el contenido */
+        gap: 8px; /* Espacio entre el icono y el texto */
         width: 80%;
         padding: 10px;
         margin: 10px 0;
@@ -270,6 +273,12 @@
         text-decoration: none;
         border-radius: 5px;
         transition: background-color 0.3s ease;
+      }
+
+      .social-media-buttons a img {
+        height: 20px; /* Tamaño del icono */
+        width: 20px;
+        vertical-align: middle;
       }
 
       .social-media-buttons a:hover {
@@ -416,6 +425,11 @@
           justify-content: center; /* Centra horizontalmente todo el contenido */
           gap: 5px; /* Espacio entre la imagen y el texto */
         }
+
+        .social-media-buttons a img {
+          height: 18px; /* Tamaño más pequeño para los iconos en móvil */
+          width: 18px;
+        }
       }
     </style>
   </head>
@@ -486,17 +500,24 @@
           </div>
 
           <div class="social-media-buttons">
-            <a href="https://www.instagram.com/deporteshinojos/" target="_blank"
-              >Instagram</a
+            <a
+              href="https://www.instagram.com/deporteshinojos/"
+              target="_blank"
             >
-            <a href="https://www.youtube.com/c/HinojosTV" target="_blank"
-              >YouTube</a
-            >
+              <img src="imgs/instagram.png" alt="Instagram" />
+              Instagram
+            </a>
+            <a href="https://www.youtube.com/c/HinojosTV" target="_blank">
+              <img src="imgs/youtube.png" alt="YouTube" />
+              YouTube
+            </a>
             <a
               href="https://www.facebook.com/DeportesHinojos/?locale=es_ES"
               target="_blank"
-              >Facebook</a
             >
+              <img src="imgs/facebook.png" alt="Facebook" />
+              Facebook
+            </a>
           </div>
 
           <img
