@@ -76,7 +76,7 @@
 
       /* Oculta la columna de imágenes y logos */
       .image-with-logos {
-        display: none; /* ¡Modificado aquí! */
+        display: none;
       }
 
       .gala-container {
@@ -159,10 +159,10 @@
       }
 
       .countdown {
-        font-family: "Glamor", "Montserrat", sans-serif; /* ¡Añadido Glamor aquí! */
+        font-family: "Glamor", "Montserrat", sans-serif;
         font-size: 1.4em;
         margin-bottom: 20px;
-        font-weight: 700; /* Puedes mantenerlo o ajustar si quieres menos negrita */
+        font-weight: 700;
         position: relative;
         z-index: 3;
       }
@@ -189,19 +189,19 @@
         overflow: hidden;
         border: 3px solid silver;
         position: relative;
-        max-width: 100%;
+        width: 100%; /* Asegura que el contenedor ocupe el ancho disponible */
+        padding-top: 56.25%; /* Esto crea el espacio para una relación de aspecto 16:9 (9 / 16 * 100) */
         z-index: 2;
-        flex-grow: 1; /* Permite que el video ocupe el espacio disponible */
-        display: flex; /* Añadido para que el iframe se adapte bien */
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px; /* Espacio antes de los botones sociales */
+        /* flex-grow: 1;  Ya no es necesario si controlamos el alto con padding-top */
+        margin-bottom: 20px;
       }
 
       .video-frame iframe {
+        position: absolute; /* Permite que el iframe se posicione dentro del espacio creado por padding-top */
+        top: 0;
+        left: 0;
         width: 100%;
-        height: 100%; /* Modificado: ocupa el 100% del alto del padre flexible */
-        aspect-ratio: 16 / 9;
+        height: 100%; /* Ocupa el 100% del espacio del contenedor con relación de aspecto */
         border: none;
       }
 
@@ -277,43 +277,40 @@
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       }
 
-      /* --- ESTILOS MODIFICADOS PARA BOTONES DE REDES SOCIALES --- */
+      /* --- ESTILOS PARA BOTONES DE REDES SOCIALES --- */
       .social-media-buttons {
-        display: none; /* Por defecto, oculto */
+        display: none;
         width: 100%;
-        /* flex-direction: column; Ya no es el valor por defecto que queremos. */
-        align-items: center; /* Centra los iconos */
-        gap: 15px; /* Espacio entre los iconos */
+        align-items: center;
+        gap: 15px;
         padding: 10px 0;
         margin-top: 20px;
-        background-color: transparent; /* Sin fondo de caja */
-        box-shadow: none; /* Sin sombra de caja */
-        border-radius: 0; /* Sin bordes redondeados para la caja */
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: 0;
       }
 
       .social-media-buttons a {
-        display: inline-block; /* Para que el enlace envuelva bien la imagen */
-        line-height: 0; /* Ajuste para evitar espacio extra bajo la imagen */
+        display: inline-block;
+        line-height: 0;
         text-decoration: none;
       }
 
       .social-media-buttons a img {
-        width: 48px; /* Tamaño de la imagen/icono */
-        height: 48px; /* Mismo alto y ancho para círculo perfecto */
-        border-radius: 50%; /* Hace la imagen circular */
-        object-fit: cover; /* Asegura que la imagen cubra el círculo sin distorsionarse */
-        display: block; /* Evita espacio extra */
-        transition: transform 0.2s ease-in-out; /* Efecto suave al pasar el ratón */
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.2s ease-in-out;
       }
 
       .social-media-buttons a:hover img {
-        transform: scale(
-          1.12
-        ); /* Agranda un poco la imagen al pasar el ratón */
+        transform: scale(1.12);
       }
-      /* --- FIN DE ESTILOS MODIFICADOS --- */
+      /* --- FIN DE ESTILOS DE REDES SOCIALES --- */
 
-      @media (max-width: 1535px) {
+      @media (max-width: 1024px) {
         .content-wrapper {
           flex-direction: column;
           gap: 20px;
@@ -322,18 +319,17 @@
           font-size: 2.5em;
         }
 
-        /* Ajustes para social-media-buttons en 1024px y menores (ahora en fila) */
         .social-media-buttons {
-          display: flex; /* Visible */
-          flex-direction: row; /* **Importante: Ahora en fila** */
-          justify-content: center; /* **Importante: Centrados en la fila** */
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
           width: 100%;
           max-width: none;
-          gap: 20px; /* Espacio entre iconos */
+          gap: 20px;
         }
 
         .social-media-buttons a img {
-          width: 50px; /* Un tamaño un poco más grande para este rango */
+          width: 50px;
           height: 50px;
         }
       }
@@ -344,14 +340,12 @@
           gap: 20px;
         }
 
-        /* En 768px y menores, los botones ya están en fila por la regla anterior,
-           solo ajustamos el tamaño y el gap si es necesario. */
         .social-media-buttons {
-          gap: 15px; /* Ligeramente menos espacio para pantallas más pequeñas */
+          gap: 15px;
         }
 
         .social-media-buttons a img {
-          width: 45px; /* Iconos un poco más pequeños */
+          width: 45px;
           height: 45px;
         }
 
@@ -376,16 +370,12 @@
           gap: 10px;
         }
 
-        /* En 480px, los estilos de .social-media-buttons se mantienen como ya estaban definidos en 1024px,
-           a menos que quieras un cambio específico. Aquí solo se ajusta el tamaño. */
         .social-media-buttons {
-          /* flex-direction: row; se hereda de 1024px */
-          /* justify-content: center; se hereda de 1024px */
-          gap: 10px; /* Espacio entre iconos en la fila para móvil */
+          gap: 10px;
         }
 
         .social-media-buttons a img {
-          width: 40px; /* Tamaño de iconos para móvil */
+          width: 40px;
           height: 40px;
         }
 
@@ -406,7 +396,6 @@
         .ball {
           width: 20px;
           height: 20px;
-          /* Resto de estilos de .ball se mantienen */
         }
       }
     </style>
@@ -682,7 +671,7 @@
           clearInterval(this.countdownInterval);
           if (this.messageTimeout) clearTimeout(this.messageTimeout);
           if (this.eventStartedMessageTimeout)
-            clearTimeout(this.eventStartedMessageTimeout); // Limpiar el nuevo temporizador
+            clearTimeout(this.eventStartedMessageTimeout);
           window.removeEventListener("resize", this.updateScreenSize);
         },
       });
